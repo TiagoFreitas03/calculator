@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Textfit } from 'react-textfit'
 
 import './global.css'
 import { Keyboard } from "./components/Keyboard"
@@ -124,15 +123,15 @@ export function App() {
 
 	return (
 		<div className="w-screen h-screen flex justify-center items-center">
-			<div className="m-4 p-5 max-w-[296px] rounded-lg bg-gray-500">
-				<header>
-					<span className="h-[16px] mb-1">
+			<div className="m-4 p-5 rounded-sm bg-black max-w-[328px]">
+				<header className="text-right pt-4 pb-2 px-3 mb-2 border-b border-gray-800">
+					<span className="h-4 mb-4 text-lg">
 						{operator === '' ? '' : value + ' ' + operator}
 					</span>
 
-					<Textfit className="font-bold text-2xl">
+					<span className="text-4xl">
 						{result}
-					</Textfit>
+					</span>
 				</header>
 
 				<Keyboard onKeyClick={(key) => handleKeyClick(key)} />
