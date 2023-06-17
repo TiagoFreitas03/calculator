@@ -5,20 +5,25 @@ import { NUMBERS, OPERATIONS } from '../utils/keys'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	text: string
+	icon?: string
 }
 
-export function Button({ text, ...rest }: ButtonProps) {
+export function Button({ text, icon, ...rest }: ButtonProps) {
 	return (
 		<button
-			className={clsx("w-12 h-12 rounded-lg m-2 text-gray-200 text-lg", {
-				"bg-gray-800": NUMBERS.includes(text),
-				"bg-blue-700": OPERATIONS.includes(text),
-				"bg-zinc-900": !NUMBERS.includes(text) && !OPERATIONS.includes(text),
-				"w-28": text === '='
+			className={clsx("w-14 h-14 m-2 text-lg", {
+				"text-gray-200": NUMBERS.includes(text) || text === '=',
+				"text-blue-500": !NUMBERS.includes(text) && text !== '=',
+				"bg-blue-500 rounded-full text-zinc-900": text === '=',
+				"hover:bg-zinc-900": text !== '='
 			})}
 			{...rest}
 		>
-			{ text }
+			{
+				icon ?
+					<i className={`fa-solid fa-${icon}`} /> :
+					<span>{ text }</span>
+			}
 		</button>
 	)
 }
