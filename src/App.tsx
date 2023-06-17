@@ -26,7 +26,7 @@ export function App() {
 		if (TEXT_KEYS.includes(key))
 			return append(key)
 
-		if (key === 'Backspace')
+		if (key === 'Backspace' || key === 'del')
 			return deleteNumber()
 
 		if (OPERATIONS.includes(key))
