@@ -42,7 +42,7 @@ export function Keyboard({ onKeyClick }: KeyboardProps) {
 		<div>
 			{
 				BUTTONS.map(row => (
-					<div key={row.join('-')}>
+					<div key={row.map(r => r.key).join('-')}>
 						{
 							row.map(({ key, icon }) => (
 								<Button
