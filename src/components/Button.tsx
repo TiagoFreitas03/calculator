@@ -9,11 +9,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({ text, icon, ...rest }: ButtonProps) {
 	return (
 		<button
-			className={clsx("w-14 h-14 m-2 text-lg", {
-				"text-gray-200": !isNaN(Number(text)) || text === '=',
-				"text-blue-500": isNaN(Number(text)) && text !== '=',
-				"bg-blue-500 rounded-full text-zinc-900": text === '=',
-				"hover:bg-zinc-900": text !== '='
+			className={clsx("w-14 h-14 m-2 text-lg outline-none", {
+				"text-gray-200": !isNaN(Number(text)) || text === 'Enter',
+				"text-blue-500": isNaN(Number(text)) && text !== 'Enter',
+				"bg-blue-500 rounded-full text-zinc-900": text === 'Enter',
+				"hover:bg-zinc-900": text !== 'Enter'
 			})}
 			{...rest}
 		>
