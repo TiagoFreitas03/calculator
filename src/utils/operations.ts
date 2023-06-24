@@ -16,39 +16,39 @@ function append(entry: string, key: string) {
 	return entry
 }
 
-function erase(entry: string) {
-	if (entry.length > 1) {
-		entry = entry.substring(0, entry.length - 1)
+function calculate(expression: string[]) {
+	let leftNum = 0, rightNum = 0
+	let operator = ''
 
-		if (entry === '-') {
-			entry = '0'
+	function validateExpression() {
+		if (expression.length !== 3) {
+			return false
+		}
+
+		[leftNum, operator, rightNum] = [Number(expression[0]), expression[1], Number(expression[2])];
+
+		return !(isNaN(leftNum) || isNaN(rightNum) || !OPERATIONS.includes(expression[1]))
+	}
+
+	const result = () => {
+		if (!validateExpression()) {
+			return 0
+		}
+
+		switch (operator) {
+			case '+': return leftNum + rightNum
+			case '-': return leftNum - rightNum
+			case '*': return leftNum * rightNum
+			default:
+				if (rightNum !== 0) {
+					return leftNum / rightNum
+				}
+
+				return 'Não é possível dividir por zero'
 		}
 	}
-	else if (entry !== '0') {
-		entry = '0'
-	}
 
-	return entry
-}
-
-function percent(value: string) {
-	const num = Number(value)
-
-	if (isNaN(num)) {
-		return value
-	}
-
-	return (num * 0.01).toString()
-}
-
-function reverseSignal(value: string) {
-	const num = Number(value)
-
-	if (isNaN(num)) {
-		return value
-	}
-
-	return (num * (-1)).toString()
+	return result().toString()
 }
 
 function addOperator(expression: string[], entry: string, operator: string, replace = false) {
@@ -73,42 +73,31 @@ function addOperator(expression: string[], entry: string, operator: string, repl
 	}
 }
 
-function calculate(expression: string[]) {
-	let leftNum = 0, rightNum = 0, result = 0
-	let operator = ''
+function erase(entry: string) {
+	if (entry.length > 1) {
+		entry = entry.substring(0, entry.length - 1)
 
-	function validateExpression() {
-		if (expression.length !== 3) {
-			return false
+		if (entry === '-') {
+			entry = '0'
 		}
-
-		[leftNum, operator, rightNum] = [Number(expression[0]),expression[1],Number(expression[2])];
-
-		return !(isNaN(leftNum) || isNaN(rightNum) || !OPERATIONS.includes(expression[1]))
+	}
+	else if (entry !== '0') {
+		entry = '0'
 	}
 
-	if (!validateExpression()) {
-		return ''
-	}
-
-	switch (operator) {
-		case '+':
-			result = leftNum + rightNum
-			break
-		case '-':
-			result = leftNum - rightNum
-			break
-		case '*':
-			result = leftNum * rightNum
-			break
-		default:
-			if (rightNum === 0)
-				alert('Não é possível dividir por zero')
-			else
-				result = leftNum / rightNum
-	}
-
-	return result.toString()
+	return entry
 }
 
-export { append, erase, percent, reverseSignal, addOperator, calculate }
+function percent(value: string) {
+	const num = Number(value)
+
+	return isNaN(num) ? value : (num * 0.01).toString()
+}
+
+function reverseSignal(value: string) {
+	const num = Number(value)
+
+	return isNaN(num) ? value : (num * (-1)).toString()
+}
+
+export { append, calculate, addOperator, erase, percent, reverseSignal }
