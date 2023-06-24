@@ -7,7 +7,7 @@ const OPERATIONS = ['+', '-', '/', '*']
 const KEYS = [
 	...TEXT_KEYS,
 	...OPERATIONS,
-	'Backspace', 'Enter', '=', '%', 'c', 'C', 'Escape'
+	'Backspace', 'Enter', '=', '%', 'c', 'C', 'r', 'R', 'Escape'
 ]
 
 export { NUMBERS, OPERATIONS, TEXT_KEYS, KEYS }
