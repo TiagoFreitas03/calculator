@@ -1,136 +1,93 @@
-import { useState } from "react"
+import { useState } from 'react'
+import clsx from 'clsx'
 
-import './global.css'
-import { Keyboard } from "./components/Keyboard"
-import { Operators, calc } from "./utils/operations"
-import { TEXT_KEYS, KEYS, OPERATIONS } from './utils/keys'
+import { Keyboard } from './components/Keyboard'
+import { KEYS, TEXT_KEYS, OPERATIONS } from './utils/keys'
+import { addOperator, append, erase, percent, reverseSignal, calculate } from './utils/operations'
+import { maskNumber, maskExpression } from "./utils/masks"
 
 export function App() {
-	const [operator, setOperator] = useState<Operators>('')
-	const [value, setValue] = useState(0)
-	const [result, setResult] = useState('0')
-	const [clear, setClear] = useState(true)
+	const [entry, setEntry] = useState('0')
+	const [expression, setExpression] = useState<string[]>([])
+	const [clearEntry, setClearEntry] = useState(false)
+
+	const maskedExpression = maskExpression(expression.slice())
+	const maskedEntry = maskNumber(entry)
+	const entryLength = maskedEntry.length
 
 	window.onkeydown = (event) => {
 		const { key } = event
 
-		if (!KEYS.includes(key))
-			return
-
-		event.preventDefault()
-
-		handleKeyClick(key)
+		if (KEYS.includes(key)) {
+			event.preventDefault()
+			handleKeyClick(key)
+		}
 	}
 
 	function handleKeyClick(key: string) {
-		if (TEXT_KEYS.includes(key))
-			return append(key)
-
-		if (key === 'Backspace' || key === 'del')
-			return deleteNumber()
-
-		if (OPERATIONS.includes(key))
-			return changeOperation(key as any)
-
-		if (['Enter', '='].includes(key))
-			return calculate()
-
-		if (key.toLowerCase() === 'c' || key === 'Escape')
-			return clearResult()
-
-		if (key === '%')
-			return percentage()
-
-		if (key === '+/-')
-			reverseSignal()
-	}
-
-	const append = (key: string) => {
-		let res = clear ? '' : result
-
-		if (res.length >= 12)
-			return
-
-		if (key === '.') {
-			setClear(false)
-
-			if (!res.split('').includes('.'))
-				setResult(res === '' ? '0.' : res + key)
-
-			return
+		if (TEXT_KEYS.includes(key)) {
+			setEntry(append(clearEntry ? '' : entry, key))
+			setClearEntry(false)
 		}
-
-		if (clear || res === '0') {
-			setClear(false)
-			return setResult(key)
+		else if (key.toLowerCase() === 'c' || key === 'Escape') {
+			setExpression([])
+			setEntry('0')
 		}
-
-		setResult(res + key)
-	}
-
-	const deleteNumber = () => {
-		if (result.length === 1 || (result.length === 2 && result.includes('-')))
-			setResult('0')
-		else if (result !== '0')
-			setResult(result.slice(0, -1))
-	}
-
-	const changeOperation = (op: Operators) => {
-		if (operator !== '') {
-			const r = calculate()
-			setValue(r)
-		} else if (result !== '0')
-			setValue(Number(result))
-
-		setResult('0')
-		setOperator(op)
-	}
-
-	const calculate = () => {
-		const res = calc(value, operator, result)
-
-		setResult(res.toString())
-		setOperator('')
-		setValue(0)
-		setClear(true)
-		return res
-	}
-
-	const clearResult = () => {
-		if (result !== '0')
-			return setResult('0')
-
-		setOperator('')
-		setValue(0)
-	}
-
-	const reverseSignal = () => {
-		if (result !== '0') {
-			if (!result.includes('-'))
-				setResult(`-${result}`)
-			else
-				setResult(result.replace('-', ''))
+		else if (key === 'Backspace') {
+			setEntry(erase(entry))
 		}
-	}
-
-	const percentage = () => {
-		const num = Number(result)
-
-		if (!isNaN(num)) {
-			setResult((num * 0.01).toString())
+		else if (key === '%') {
+			setEntry(percent(entry))
+		}
+		else if (key.toLowerCase() === 'r') {
+			setEntry(reverseSignal(entry))
+		}
+		else if (OPERATIONS.includes(key)) {
+			const aux = addOperator(expression.slice(), entry, key, clearEntry)
+			setEntry(aux.entry)
+			setExpression(aux.expression.slice())
+			setClearEntry(true)
+		}
+		else if (['Enter', '='].includes(key) && expression.length === 2) {
+			setEntry(calculate(expression.concat(entry).slice()))
+			setExpression([])
+			setClearEntry(true)
 		}
 	}
 
 	return (
 		<div className="w-screen h-screen flex justify-center items-center">
-			<div className="m-4 p-5 rounded-sm bg-black max-w-[328px]">
-				<header className="text-right pt-4 pb-2 px-3 mb-2 border-b border-gray-800">
-					<span className="h-4 mb-4 text-lg">
-						{operator === '' ? '' : value + ' ' + operator}
-					</span>
+			<div className="m-4 p-5 rounded-sm bg-black max-w-[330px] border border-gray-700">
+				<header className="text-right px-2 mb-2 border-b border-gray-800">
+					<div className='flex items-center justify-end h-8 mb-2 text-lg'>
+						{
+							maskedExpression.map((element, index) => {
+								return OPERATIONS.includes(element) ?
+									<i
+										key={element + index}
+										className={clsx('fas text-sm ml-2 text-blue-300', {
+											'fa-plus': element === '+',
+											'fa-minus': element === '-',
+											'fa-xmark': element === '*',
+											'fa-divide': element === '/'
+										})}
+									/> :
+									<span key={element+index} className="ml-2 text-gray-500">
+										{element}
+									</span>
+							})
+						}
+					</div>
 
-					<span className="text-4xl">
-						{result}
+					<span
+						className={clsx("my-1 h-12 flex items-center justify-end", {
+							"text-4xl": entryLength <= 14,
+							"text-3xl": entryLength > 14 && entryLength <= 17,
+							"text-2xl": entryLength > 17 && entryLength <= 20,
+							"text-xl": entryLength > 20
+						})}
+					>
+						{maskedEntry}
 					</span>
 				</header>
 
