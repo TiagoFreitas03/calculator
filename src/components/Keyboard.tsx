@@ -7,7 +7,7 @@ interface KeyboardProps {
 const BUTTONS = [
 	[
 		{ key: 'C', icon: 'c' },
-		{ key: 'del', icon: 'delete-left' },
+		{ key: 'Backspace', icon: 'delete-left' },
 		{ key: '%', icon: 'percent' },
 		{ key: '/', icon: 'divide' },
 	],
@@ -30,10 +30,10 @@ const BUTTONS = [
 		{ key: '+', icon: 'plus' },
 	],
 	[
-		{ key: '+/-', icon: 'plus-minus' },
+		{ key: 'r', icon: 'plus-minus' },
 		{ key: '0', icon: '0' },
 		{ key: '.' },
-		{ key: '=', icon: 'equals' }
+		{ key: 'Enter', icon: 'equals' }
 	]
 ]
 
