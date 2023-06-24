@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
 import { Keyboard } from './components/Keyboard'
@@ -7,6 +8,16 @@ import { maskNumber, maskExpression } from "./utils/masks"
 
 export function App() {
 	const { entry, expression, handleKeyPress } = useCalculator()
+
+	const [activeKey, setActiveKey] = useState('')
+
+	useEffect(() => {
+		if (activeKey !== '') {
+			setTimeout(() => {
+				setActiveKey('')
+			}, 100)
+		}
+	}, [activeKey])
 
 	const maskedExpression = maskExpression(expression.slice())
 	const maskedEntry = maskNumber(entry)
@@ -18,6 +29,7 @@ export function App() {
 		if (KEYS.includes(key)) {
 			event.preventDefault()
 			handleKeyPress(key)
+			setActiveKey(key)
 		}
 	}
 
@@ -57,16 +69,18 @@ export function App() {
 						{maskedEntry}
 					</span>
 
-					<div className='flex justify-end py-3 text-sm text-blue-100'>
+					<div className='flex justify-end py-3 text-blue-100'>
 						<i
-							className='cursor-pointer fas fa-delete-left hover:text-blue-300'
+							className={clsx('cursor-pointer fas fa-delete-left hover:text-blue-300', {
+								"text-blue-300": activeKey === 'Backspace'
+							})}
 							title='Apagar'
 							onClick={() => handleKeyPress('Backspace')}
 						/>
 					</div>
 				</header>
 
-				<Keyboard onKeyClick={(key) => handleKeyPress(key)} />
+				<Keyboard onKeyClick={(key) => handleKeyPress(key)} activeKey={activeKey} />
 			</div>
 		</div>
 	)

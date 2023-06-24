@@ -3,9 +3,10 @@ import { BUTTONS } from '../constants/BUTTONS'
 
 interface KeyboardProps {
 	onKeyClick: (key: string) => void
+	activeKey: string
 }
 
-export function Keyboard({ onKeyClick }: KeyboardProps) {
+export function Keyboard({ onKeyClick, activeKey }: KeyboardProps) {
 	return (
 		<div>
 			{
@@ -15,6 +16,7 @@ export function Keyboard({ onKeyClick }: KeyboardProps) {
 						onClick={() => onKeyClick(key)}
 						text={text ?? key}
 						icon={icon}
+						active={activeKey === key}
 					/>
 				))
 			}
