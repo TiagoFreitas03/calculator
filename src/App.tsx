@@ -58,7 +58,7 @@ export function App() {
 					</span>
 				</header>
 
-				<Keyboard onKeyClick={(key) => handleKeyClick(key)} />
+				<Keyboard onKeyClick={(key) => handleKeyPress(key)} />
 			</div>
 		</div>
 	)
