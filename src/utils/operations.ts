@@ -1,4 +1,4 @@
-import { NUMBERS, OPERATIONS, TEXT_KEYS } from "./keys"
+import { NUMBERS, OPERATIONS } from "../constants/KEYS"
 import { onlyNumbers } from "./only-numbers"
 
 function append(entry: string, key: string) {
