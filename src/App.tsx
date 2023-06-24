@@ -35,8 +35,8 @@ export function App() {
 
 	return (
 		<div className="w-screen h-screen flex justify-center items-center">
-			<div className="m-4 p-5 rounded-sm bg-black max-w-[330px] border border-gray-700">
-				<header className="text-right px-2 mb-2 border-b border-gray-800">
+			<div className="m-4 p-5 rounded-sm bg-black max-w-[362px] border border-zinc-700">
+				<header className="text-right px-2 mb-2 border-b border-zinc-800">
 					<div className='flex items-center justify-end h-8 mb-2 text-lg'>
 						{
 							maskedExpression.map((element, index) => {
@@ -51,7 +51,7 @@ export function App() {
 											'fa-equals': element === '='
 										})}
 									/> :
-									<span key={element + index} className="ml-2 text-gray-400">
+									<span key={element + index} className="ml-2 text-zinc-400">
 										{element}
 									</span>
 							})
@@ -60,10 +60,9 @@ export function App() {
 
 					<span
 						className={clsx("my-1 h-12 flex items-center justify-end", {
-							"text-4xl": entryLength <= 14,
-							"text-3xl": entryLength > 14 && entryLength <= 17,
-							"text-2xl": entryLength > 17 && entryLength <= 20,
-							"text-xl": entryLength > 20
+							"text-4xl": entryLength <= 15,
+							"text-3xl": entryLength > 15 && entryLength <= 18,
+							"text-2xl": entryLength > 18
 						})}
 					>
 						{maskedEntry}
