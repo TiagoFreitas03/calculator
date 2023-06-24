@@ -56,6 +56,14 @@ export function App() {
 					>
 						{maskedEntry}
 					</span>
+
+					<div className='flex justify-end py-3 text-sm text-blue-100'>
+						<i
+							className='cursor-pointer fas fa-delete-left hover:text-blue-300'
+							title='Apagar'
+							onClick={() => handleKeyPress('Backspace')}
+						/>
+					</div>
 				</header>
 
 				<Keyboard onKeyClick={(key) => handleKeyPress(key)} />
