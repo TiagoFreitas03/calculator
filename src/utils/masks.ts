@@ -1,9 +1,7 @@
-import { onlyNumbers } from "./only-numbers"
-
 function maskExpression(expression: string[]) {
 	for (let i = 0; i < expression.length; i++) {
 		if (!isNaN(Number(expression[i]))) {
-			expression[i] = maskNumber(expression[i])
+			expression[i] = maskNumber(expression[i], true)
 		}
 	}
 
@@ -11,7 +9,7 @@ function maskExpression(expression: string[]) {
 }
 
 function maskNumber(str: string, parenthesis: boolean = false) {
-	if (str.replace('.', '').length !== onlyNumbers(str).length) {
+	if (isNaN(Number(str))) {
 		return str
 	}
 
