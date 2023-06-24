@@ -1,15 +1,12 @@
-import { useState } from 'react'
 import clsx from 'clsx'
 
 import { Keyboard } from './components/Keyboard'
-import { KEYS, TEXT_KEYS, OPERATIONS } from './utils/keys'
-import { addOperator, append, erase, percent, reverseSignal, calculate } from './utils/operations'
+import { KEYS, OPERATIONS } from './constants/KEYS'
+import { useCalculator } from './hooks/Calculator'
 import { maskNumber, maskExpression } from "./utils/masks"
 
 export function App() {
-	const [entry, setEntry] = useState('0')
-	const [expression, setExpression] = useState<string[]>([])
-	const [clearEntry, setClearEntry] = useState(false)
+	const { entry, expression, handleKeyPress } = useCalculator()
 
 	const maskedExpression = maskExpression(expression.slice())
 	const maskedEntry = maskNumber(entry)
@@ -20,38 +17,7 @@ export function App() {
 
 		if (KEYS.includes(key)) {
 			event.preventDefault()
-			handleKeyClick(key)
-		}
-	}
-
-	function handleKeyClick(key: string) {
-		if (TEXT_KEYS.includes(key)) {
-			setEntry(append(clearEntry ? '' : entry, key))
-			setClearEntry(false)
-		}
-		else if (key.toLowerCase() === 'c' || key === 'Escape') {
-			setExpression([])
-			setEntry('0')
-		}
-		else if (key === 'Backspace') {
-			setEntry(erase(entry))
-		}
-		else if (key === '%') {
-			setEntry(percent(entry))
-		}
-		else if (key.toLowerCase() === 'r') {
-			setEntry(reverseSignal(entry))
-		}
-		else if (OPERATIONS.includes(key)) {
-			const aux = addOperator(expression.slice(), entry, key, clearEntry)
-			setEntry(aux.entry)
-			setExpression(aux.expression.slice())
-			setClearEntry(true)
-		}
-		else if (['Enter', '='].includes(key) && expression.length === 2) {
-			setEntry(calculate(expression.concat(entry).slice()))
-			setExpression([])
-			setClearEntry(true)
+			handleKeyPress(key)
 		}
 	}
 
