@@ -56,16 +56,15 @@ function addOperator(expression: string[], entry: string, operator: string, repl
 		return { expression, entry }
 	}
 
-	if (replace) {
-		expression.splice(1, 1, operator)
-
-		return { expression, entry }
-	}
-
 	let result = entry
 
 	if (expression.length === 2) {
-		result = calculate(expression.concat(entry))
+		if (replace) {
+			expression.splice(1, 1, operator)
+		}
+		else {
+			result = calculate(expression.concat(entry))
+		}
 	}
 
 	return {
