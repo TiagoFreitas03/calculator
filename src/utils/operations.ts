@@ -2,16 +2,14 @@ import { NUMBERS, OPERATIONS, TEXT_KEYS } from "./keys"
 import { onlyNumbers } from "./only-numbers"
 
 function append(entry: string, key: string) {
-	if (TEXT_KEYS.includes(key)) {
-		if (NUMBERS.includes(key)) { // 0..9
-			if (onlyNumbers(entry).length < 15) {
-				entry = entry === '0' ? key : entry + key
-			}
+	if (NUMBERS.includes(key)) { // 0..9
+		if (onlyNumbers(entry).length < 15) {
+			entry = entry === '0' ? key : entry + key
 		}
-		else if (!entry.includes(key)) { // "."
-			if (onlyNumbers(entry).length < 15) {
-				entry = entry + key
-			}
+	}
+	else if (key === '.' && !entry.includes(key)) {
+		if (onlyNumbers(entry).length < 15) {
+			entry = entry + key
 		}
 	}
 
