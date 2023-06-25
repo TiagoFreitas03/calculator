@@ -18,6 +18,7 @@ interface CalculatorContextData {
 		expression: string[];
 		entry: string;
 	}
+	clearHistory: () => void
 }
 
 const CalculatorContext = createContext<CalculatorContextData>({} as CalculatorContextData)
@@ -79,7 +80,7 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 
 		setHistory([...history.slice(-19), { expression: expression.concat('='), result }])
 
-		return calcResult().toString()
+		return calcResult()
 	}
 
 	function addOperator(expression: string[], entry: string, operator: string, replace = false) {
@@ -104,8 +105,10 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 		}
 	}
 
+	const clearHistory = () => setHistory([])
+
 	return (
-		<CalculatorContext.Provider value={{ history, calculate, addOperator }}>
+		<CalculatorContext.Provider value={{ history, calculate, addOperator, clearHistory }}>
 			{ children }
 		</CalculatorContext.Provider>
 	)

@@ -72,9 +72,15 @@ export function useCalculator() {
 		}
 	}
 
+	function changeValues(exp: string[], text: string) {
+		setExpression(exp)
+		setEntry(text)
+	}
+
 	return {
 		entry,
 		expression,
-		handleKeyPress
+		handleKeyPress,
+		changeValues
 	}
 }
