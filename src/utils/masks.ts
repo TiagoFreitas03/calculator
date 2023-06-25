@@ -14,6 +14,9 @@ function maskNumber(str: string, parenthesis: boolean = false) {
 	}
 
 	const decimalSeparatorPos = str.indexOf('.')
+	const negative = Number(str) < 0
+	str = negative ? (Number(str) * (-1)).toString() : str
+
 	let integerPart = str
 	let decimalPart = ''
 
@@ -39,7 +42,11 @@ function maskNumber(str: string, parenthesis: boolean = false) {
 		num.push(`,${decimalPart}`)
 	}
 
-	if (Number(num.join('')) < 0 && parenthesis) {
+	if (negative) {
+		num.unshift('-')
+	}
+
+	if (negative && parenthesis) {
 		num.unshift('(')
 		num.push(')')
 	}
