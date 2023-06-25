@@ -9,7 +9,7 @@ function maskExpression(expression: string[]) {
 }
 
 function maskNumber(str: string, parenthesis: boolean = false) {
-	if (isNaN(Number(str)) || str === 'Infinity') {
+	if (isNaN(Number(str)) || !(/^-?\d*\.?\d+$/).test(str)) {
 		return str
 	}
 
