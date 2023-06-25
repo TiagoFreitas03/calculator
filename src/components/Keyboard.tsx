@@ -8,7 +8,7 @@ interface KeyboardProps {
 
 export function Keyboard({ onKeyClick, activeKey }: KeyboardProps) {
 	return (
-		<div>
+		<div className="w-full h-full absolute top-0 left-0">
 			{
 				BUTTONS.map(({ key, icon, text }) => (
 					<Button
