@@ -1,12 +1,18 @@
 import { useState } from "react"
 
 import { KEYS, OPERATIONS, TEXT_KEYS } from "../constants/KEYS"
-import { append, addOperator, erase, percent, reverseSignal, calculate } from '../utils/operations'
+import { useCalculatorContext } from '../contexts/CalculatorContext'
+import { append } from '../utils/append'
+import { erase } from '../utils/erase'
+import { percent } from '../utils/percent'
+import { reverseSignal } from '../utils/reverse-signal'
 
 export function useCalculator() {
 	const [entry, setEntry] = useState('0')
 	const [expression, setExpression] = useState<string[]>([])
 	const [clearEntry, setClearEntry] = useState(false)
+
+	const { calculate, addOperator } = useCalculatorContext()
 
 	function handleKeyPress(key: string) {
 		if (!KEYS.includes(key)) {
@@ -51,7 +57,7 @@ export function useCalculator() {
 						return
 					}
 
-					expression.push(entry)
+					expression.push(Number(entry).toString())
 
 					if (expression.length > 3) {
 						expression[0] = entry
