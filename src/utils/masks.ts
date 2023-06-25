@@ -9,13 +9,13 @@ function maskExpression(expression: string[]) {
 }
 
 function maskNumber(str: string, parenthesis: boolean = false) {
-	if (isNaN(Number(str)) || !(/^-?\d*\.?\d+$/).test(str)) {
+	if (isNaN(Number(str)) || !(/^-?\d*\.?\d+.?$/).test(str)) {
 		return str
 	}
 
 	const decimalSeparatorPos = str.indexOf('.')
 	const negative = Number(str) < 0
-	str = negative ? (Number(str) * (-1)).toString() : str
+	str = negative ? str.substring(1) : str
 
 	let integerPart = str
 	let decimalPart = ''
@@ -39,7 +39,7 @@ function maskNumber(str: string, parenthesis: boolean = false) {
 	}
 
 	if (decimalSeparatorPos > 0) {
-		num.push(`,${decimalPart}`)
+		num.push(`,${decimalPart ?? ''}`)
 	}
 
 	if (negative) {
