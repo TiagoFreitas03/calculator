@@ -42,7 +42,7 @@ export function useCalculator() {
 				case '%':
 					setEntry(percent(entry))
 					break
-				case '+/-':
+				case 'Shift':
 					setEntry(reverseSignal(entry))
 					break
 				case 'Enter':
