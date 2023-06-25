@@ -9,9 +9,15 @@ interface ExpressionProps {
 
 export function Expression({ value }: ExpressionProps) {
 	const maskedExpression = maskExpression(value.slice())
+	const expressionLength = maskedExpression.join(' ').length
 
 	return (
-		<div className='flex items-center justify-end h-8 mb-2 text-lg'>
+		<div className={clsx('flex items-center justify-end h-8 mb-2', {
+			'text-lg': expressionLength <= 32,
+			'': expressionLength > 32 && expressionLength <= 36,
+			'text-sm': expressionLength > 36 && expressionLength <= 41,
+			'text-xs': expressionLength > 41,
+		})}>
 			{
 				maskedExpression.map((element, index) => {
 					return [...OPERATIONS, '='].includes(element) ?
