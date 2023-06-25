@@ -35,13 +35,15 @@ function calculate(expression: string[]) {
 			return 0
 		}
 
+		const format = (num: number) => Number(num.toPrecision(5)).toString()
+
 		switch (operator) {
-			case '+': return leftNum + rightNum
-			case '-': return leftNum - rightNum
-			case '*': return leftNum * rightNum
+			case '+': return format(leftNum + rightNum)
+			case '-': return format(leftNum - rightNum)
+			case '*': return format(leftNum * rightNum)
 			default:
 				if (rightNum !== 0) {
-					return leftNum / rightNum
+					return format(leftNum / rightNum)
 				}
 
 				return 'Não é possível dividir por zero'
