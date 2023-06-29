@@ -1,15 +1,14 @@
 import clsx from "clsx"
 
+import { useCalculator } from "../contexts/CalculatorContext"
 import { OPERATIONS } from "../constants/KEYS"
 import { maskExpression } from "../utils/masks"
 import { OperatorIcon } from "./OperatorIcon"
 
-interface ExpressionProps {
-	value: string[]
-}
+export function Expression() {
+	const { expression } = useCalculator()
 
-export function Expression({ value }: ExpressionProps) {
-	const maskedExpression = maskExpression(value.slice())
+	const maskedExpression = maskExpression(expression.slice())
 	const expressionLength = maskedExpression.join(' ').length
 
 	return (

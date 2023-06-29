@@ -1,13 +1,12 @@
 import clsx from "clsx"
 
+import { useCalculator } from "../contexts/CalculatorContext"
 import { maskNumber } from "../utils/masks"
 
-interface EntryProps {
-	value: string
-}
+export function Entry() {
+	const { entry } = useCalculator()
 
-export function Entry({ value }: EntryProps) {
-	const maskedEntry = maskNumber(value)
+	const maskedEntry = maskNumber(entry)
 	const entryLength = maskedEntry.length
 
 	return (

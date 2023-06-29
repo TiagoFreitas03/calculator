@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react"
 
-import { OPERATIONS } from "../constants/KEYS"
+import { KEYS, OPERATIONS, TEXT_KEYS } from "../constants/KEYS"
+import { append, erase, percent, reverse, calculate, addOperator } from '../utils/operations'
 
 interface ContextProps {
 	children: ReactNode
@@ -12,18 +13,20 @@ interface Calculation {
 }
 
 interface CalculatorContextData {
+	entry: string
+	expression: string[]
 	history: Calculation[]
-	calculate: (expression: string[]) => string
-	addOperator: (expression: string[], entry: string, operator: string, replace?: boolean) => {
-		expression: string[];
-		entry: string;
-	}
+	handleKeyPress(key: string): void
 	clearHistory: () => void
+	restoreHistory: (math: Calculation) => void
 }
 
 const CalculatorContext = createContext<CalculatorContextData>({} as CalculatorContextData)
 
 export function CalculatorContextProvider({ children }: ContextProps) {
+	const [entry, setEntry] = useState('0')
+	const [expression, setExpression] = useState<string[]>([])
+	const [clearEntry, setClearEntry] = useState(false)
 	const [history, setHistory] = useState<Calculation[]>([])
 
 	useEffect(() => {
@@ -41,77 +44,107 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 		}
 	}, [history])
 
-	function calculate(expression: string[]) {
-		let left = 0, right = 0
-		let operator = ''
-
-		function validateExpression() {
-			if (expression.length !== 3) {
-				return false
-			}
-
-			[left, operator, right] = [Number(expression[0]), expression[1], Number(expression[2])];
-
-			return !(isNaN(left) || isNaN(right) || !OPERATIONS.includes(expression[1]))
+	function handleKeyPress(key: string) {
+		if (!KEYS.includes(key)) {
+			return
 		}
 
-		const calcResult = () => {
-			if (!validateExpression()) {
-				return '0'
+		if (TEXT_KEYS.includes(key)) {
+			setEntry(append(clearEntry ? '0' : entry, key))
+			setClearEntry(false)
+
+			if (expression.length > 3) {
+				setExpression([])
 			}
+		}
+		else if (OPERATIONS.includes(key)) {
+			try {
+				const aux = addOperator(expression.slice(), entry, key, clearEntry)
 
-			const format = (num: number) => Number(num.toPrecision(15)).toString()
+				if (aux.calculated) {
+					setHistory([...history, {
+						expression: expression.slice().concat([entry, '=']),
+						result: aux.entry
+					}])
+				}
 
-			switch (operator) {
-				case '+': return format(left + right)
-				case '-': return format(left - right)
-				case '*': return format(left * right)
-				default:
-					if (right !== 0) {
-						return format(left / right)
+				setEntry(aux.entry)
+				setExpression(aux.expression.slice())
+				setClearEntry(true)
+			}
+			catch (err) {
+				alert(err)
+			}
+		}
+		else {
+			switch (key) {
+				case 'Escape':
+					setExpression([])
+					setEntry('0')
+					break
+				case 'Delete':
+					setEntry('0')
+					break
+				case 'Backspace':
+					setEntry(erase(entry))
+					break
+				case '%':
+					setEntry(percent(entry))
+					break
+				case '+-':
+					setEntry(reverse(entry))
+					break
+				case 'Enter':
+				case '=':
+					if (expression.length < 2 || !OPERATIONS.includes(expression[1])) {
+						return
 					}
 
-					alert('Não é possível dividir por zero')
-					return '0'
+					const aux = expression.slice()
+					aux.push(Number(entry).toString())
+
+					if (aux.length > 3) {
+						aux[0] = entry
+						aux.splice(3, aux.length - 3)
+					}
+
+					try {
+						const result = calculate(aux)
+						aux.push('=')
+
+						setEntry(result)
+						setExpression(aux)
+						setClearEntry(true)
+						setHistory([...history, { expression: aux.slice(), result }])
+					} catch (err) {
+						alert(err)
+					}
 			}
-		}
-
-		const result = calcResult()
-
-		setHistory([...history.slice(-19), { expression: expression.concat('='), result }])
-
-		return calcResult()
-	}
-
-	function addOperator(expression: string[], entry: string, operator: string, replace = false) {
-		if (!OPERATIONS.includes(operator)) {
-			return { expression, entry }
-		}
-
-		let result = entry
-
-		if (expression.length === 2) {
-			if (replace) {
-				expression.splice(1, 1, operator)
-			}
-			else {
-				result = calculate(expression.concat(entry))
-			}
-		}
-
-		return {
-			expression: [Number(result).toString(), operator],
-			entry: result
 		}
 	}
 
-	const clearHistory = () => setHistory([])
+	const clearHistory = () => {
+		setHistory([])
+		localStorage.removeItem('calculator-history')
+	}
+
+	function restoreHistory(math: Calculation) {
+		setEntry(math.result)
+		setExpression(math.expression)
+	}
 
 	return (
-		<CalculatorContext.Provider value={{ history, calculate, addOperator, clearHistory }}>
+		<CalculatorContext.Provider value={{
+			entry,
+			expression,
+			history,
+			handleKeyPress,
+			clearHistory,
+			restoreHistory
+		}}>
 			{ children }
 		</CalculatorContext.Provider>
 	)
 }
 
-export const useCalculatorContext = () => useContext(CalculatorContext)
+export const useCalculator = () => useContext(CalculatorContext)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
-import { useCalculator } from '../hooks/CalculatorHook'
+import { useCalculator } from '../contexts/CalculatorContext'
 import { KEYS } from '../constants/KEYS'
 import { Expression } from '../components/Expression'
 import { Entry } from '../components/Entry'
@@ -9,7 +9,7 @@ import { Keyboard } from '../components/Keyboard'
 import { History } from '../components/History'
 
 export function Calculator() {
-	const { entry, expression, handleKeyPress, changeValues } = useCalculator()
+	const { handleKeyPress, restoreHistory } = useCalculator()
 
 	const [activeKey, setActiveKey] = useState('')
 	const [isHistoryVisible, setIsHistoryVisible] = useState(false)
@@ -36,9 +36,9 @@ export function Calculator() {
 		<div className="w-screen h-screen flex justify-center items-center">
 			<div className="m-4 p-5 rounded-sm bg-black max-w-[362px] border border-zinc-700">
 				<header className="text-right px-2 mb-2 border-b border-zinc-800">
-					<Expression value={expression.slice()} />
+					<Expression />
 
-					<Entry value={entry} />
+					<Entry />
 
 					<div className='flex justify-between py-3 text-blue-100'>
 						<i
@@ -61,14 +61,11 @@ export function Calculator() {
 				</header>
 
 				<div className='w-80 h-[400px] relative'>
-					<Keyboard
-						onKeyClick={(key) => handleKeyPress(key)}
-						activeKey={activeKey}
-					/>
+					<Keyboard activeKey={activeKey} />
 
 					<History
 						visible={isHistoryVisible}
-						onSelectMath={(exp, res) => changeValues(exp.slice(), res)}
+						onSelectMath={(exp, result) => restoreHistory({ expression: exp.slice(), result })}
 					/>
 				</div>
 			</div>

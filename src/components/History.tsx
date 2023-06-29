@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import { useCalculatorContext } from "../contexts/CalculatorContext"
+import { useCalculator } from "../contexts/CalculatorContext"
 import { OperatorIcon } from "./OperatorIcon"
 import { maskExpression,maskNumber } from "../utils/masks"
 import { OPERATIONS } from "../constants/KEYS"
@@ -15,7 +15,7 @@ export function History({ visible, onSelectMath }: HistoryProps) {
 		return <></>
 	}
 
-	const { history, clearHistory } = useCalculatorContext()
+	const { history, clearHistory } = useCalculator()
 
 	return (
 		<div className='w-60 h-full absolute z-10 bg-black border-r border-zinc-800 p-2'>
