@@ -21,7 +21,7 @@ export const BUTTONS: Button[] = [
 	{ key: '2', icon: '2' },
 	{ key: '3', icon: '3' },
 	{ key: '+', icon: 'plus' },
-	{ key: 'Shift', icon: 'plus-minus' },
+	{ key: '+-', icon: 'plus-minus' },
 	{ key: '0', icon: '0' },
 	{ key: '.', text: ',' },
 	{ key: 'Enter', icon: 'equals' }
