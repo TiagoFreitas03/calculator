@@ -7,15 +7,14 @@ import { OPERATIONS } from "../constants/KEYS"
 
 interface HistoryProps {
 	visible: boolean
-	onSelectMath: (expression: string[], result: string) => void
 }
 
-export function History({ visible, onSelectMath }: HistoryProps) {
+export function History({ visible }: HistoryProps) {
 	if (!visible) {
 		return <></>
 	}
 
-	const { history, clearHistory } = useCalculator()
+	const { history, clearHistory, restoreHistory } = useCalculator()
 
 	return (
 		<div className='w-60 h-full absolute z-10 bg-black border-r border-zinc-800 p-2'>
@@ -32,7 +31,7 @@ export function History({ visible, onSelectMath }: HistoryProps) {
 								<div
 									className="p-2 mr-2 text-right hover:bg-zinc-800 cursor-pointer"
 									key={JSON.stringify(math) + index}
-									onClick={() => onSelectMath(math.expression, math.result)}
+									onClick={() => restoreHistory(math)}
 								>
 									<div className="text-sm flex justify-end items-center">
 										{

@@ -9,7 +9,7 @@ import { Keyboard } from '../components/Keyboard'
 import { History } from '../components/History'
 
 export function Calculator() {
-	const { handleKeyPress, restoreHistory } = useCalculator()
+	const { handleKeyPress } = useCalculator()
 
 	const [activeKey, setActiveKey] = useState('')
 	const [isHistoryVisible, setIsHistoryVisible] = useState(false)
@@ -63,10 +63,7 @@ export function Calculator() {
 				<div className='w-80 h-[400px] relative'>
 					<Keyboard activeKey={activeKey} />
 
-					<History
-						visible={isHistoryVisible}
-						onSelectMath={(exp, result) => restoreHistory({ expression: exp.slice(), result })}
-					/>
+					<History visible={isHistoryVisible} />
 				</div>
 			</div>
 		</div>
