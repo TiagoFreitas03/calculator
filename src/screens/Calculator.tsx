@@ -7,6 +7,7 @@ import { Expression } from '../components/Expression'
 import { Entry } from '../components/Entry'
 import { Keyboard } from '../components/Keyboard'
 import { History } from '../components/History'
+import { IconButton } from '../components/IconButton'
 
 export function Calculator() {
 	const { handleKeyPress } = useCalculator()
@@ -41,19 +42,14 @@ export function Calculator() {
 					<Entry />
 
 					<div className='flex justify-between py-3 text-blue-100'>
-						<i
-							className={clsx('cursor-pointer hover:text-blue-300 fas', {
-								'fa-clock-rotate-left': !isHistoryVisible,
-								'fa-calculator': isHistoryVisible,
-							})}
-							title={isHistoryVisible ? 'Teclado' : 'Histórico'}
+						<IconButton
+							icon={!isHistoryVisible ? 'clock-rotate-left' : 'calculator'}
+							title={!isHistoryVisible ? 'Histórico' : 'Teclado'}
 							onClick={() => setIsHistoryVisible(!isHistoryVisible)}
 						/>
 
-						<i
-							className={clsx('cursor-pointer fas fa-delete-left hover:text-blue-300', {
-								"text-blue-300": activeKey === 'Backspace'
-							})}
+						<IconButton
+							icon='delete-left'
 							title='Apagar'
 							onClick={() => handleKeyPress('Backspace')}
 						/>
