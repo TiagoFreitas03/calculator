@@ -2,11 +2,7 @@ import { useCalculator } from "../contexts/CalculatorContext"
 import { Button } from "./Button"
 import { BUTTONS } from '../constants/BUTTONS'
 
-interface KeyboardProps {
-	activeKey: string
-}
-
-export function Keyboard({ activeKey }: KeyboardProps) {
+export function Keyboard() {
 	const { handleKeyPress } = useCalculator()
 
 	return (
@@ -18,7 +14,6 @@ export function Keyboard({ activeKey }: KeyboardProps) {
 						onClick={() => handleKeyPress(key)}
 						text={text ?? key}
 						icon={icon}
-						active={activeKey === key}
 					/>
 				))
 			}

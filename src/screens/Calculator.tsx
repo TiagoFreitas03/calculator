@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import clsx from 'clsx'
+import { useState } from 'react'
 
 import { useCalculator } from '../contexts/CalculatorContext'
 import { KEYS } from '../constants/KEYS'
@@ -12,16 +11,7 @@ import { IconButton } from '../components/IconButton'
 export function Calculator() {
 	const { handleKeyPress } = useCalculator()
 
-	const [activeKey, setActiveKey] = useState('')
 	const [isHistoryVisible, setIsHistoryVisible] = useState(false)
-
-	useEffect(() => {
-		if (activeKey !== '') {
-			setTimeout(() => {
-				setActiveKey('')
-			}, 100)
-		}
-	}, [activeKey])
 
 	window.onkeydown = (event) => {
 		const { key } = event
@@ -29,7 +19,6 @@ export function Calculator() {
 		if (KEYS.includes(key)) {
 			event.preventDefault()
 			handleKeyPress(key)
-			setActiveKey(key)
 		}
 	}
 
@@ -57,7 +46,7 @@ export function Calculator() {
 				</header>
 
 				<div className='w-80 h-[400px] relative'>
-					<Keyboard activeKey={activeKey} />
+					<Keyboard />
 
 					<History visible={isHistoryVisible} />
 				</div>
