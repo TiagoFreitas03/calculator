@@ -38,12 +38,6 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 		}
 	}, [])
 
-	useEffect(() => {
-		if (history.length > 0) {
-			localStorage.setItem('calculator-history', JSON.stringify(history))
-		}
-	}, [history])
-
 	function handleKeyPress(key: string) {
 		if (!KEYS.includes(key)) {
 			return
@@ -62,10 +56,7 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 				const aux = addOperator(expression.slice(), entry, key, clearEntry)
 
 				if (aux.calculated) {
-					setHistory([...history, {
-						expression: expression.slice().concat([entry, '=']),
-						result: aux.entry
-					}])
+					addToHistory(expression.concat([entry, '=']).slice(), aux.entry)
 				}
 
 				setEntry(aux.entry)
@@ -115,7 +106,7 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 						setEntry(result)
 						setExpression(aux)
 						setClearEntry(true)
-						setHistory([...history, { expression: aux.slice(), result }])
+						addToHistory(aux.slice(), result)
 					} catch (err) {
 						alert(err)
 					}
@@ -123,9 +114,15 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 		}
 	}
 
-	const clearHistory = () => {
+	function clearHistory() {
 		setHistory([])
 		localStorage.removeItem('calculator-history')
+	}
+
+	function addToHistory(expression: string[], result: string) {
+		const aux = [...history.slice(-19), { expression, result }]
+		setHistory(aux)
+		localStorage.setItem('calculator-history', JSON.stringify(aux))
 	}
 
 	function restoreHistory(math: Calculation) {
