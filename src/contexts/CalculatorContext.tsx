@@ -63,8 +63,8 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 				setExpression(aux.expression.slice())
 				setClearEntry(true)
 			}
-			catch (err) {
-				alert(err)
+			catch (err: any) {
+				alert(err.message)
 			}
 		}
 		else {
@@ -107,8 +107,8 @@ export function CalculatorContextProvider({ children }: ContextProps) {
 						setExpression(aux)
 						setClearEntry(true)
 						addToHistory(aux.slice(), result)
-					} catch (err) {
-						alert(err)
+					} catch (err: any) {
+						alert(err.message)
 					}
 			}
 		}
