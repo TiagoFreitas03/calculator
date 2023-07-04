@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import { ScreenTitle } from '../components/ScreenTitle'
+
 const options = [
 	{ link: '/age', icon: 'cake-candles', title: 'Idade' },
 	{ link: '/area', icon: 'up-right-and-down-left-from-center', title: 'Área' },
@@ -19,15 +21,7 @@ const options = [
 export function Menu() {
 	return (
 		<>
-			<div className='flex justify-between items-center mb-2'>
-				<Link to='/'>
-					<i className='fas fa-angle-left' />
-				</Link>
-
-				<h1 className='text-2xl text-blue-400'>Menu</h1>
-
-				<span/>
-			</div>
+			<ScreenTitle title='Menu' navigateTo='/' />
 
 			<div className='grid grid-cols-3'>
 				{options.map(option => {
