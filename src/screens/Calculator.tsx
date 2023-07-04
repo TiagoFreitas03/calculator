@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useCalculator } from '../contexts/CalculatorContext'
 import { KEYS } from '../constants/KEYS'
@@ -23,34 +24,38 @@ export function Calculator() {
 	}
 
 	return (
-		<div className="w-screen h-screen flex justify-center items-center">
-			<div className="m-4 p-5 rounded-sm bg-black max-w-[362px] border border-zinc-700">
-				<header className="text-right px-2 mb-2 border-b border-zinc-800">
-					<Expression />
+		<>
+			<header className="text-right px-2 mb-2 border-b border-zinc-800">
+				<Expression />
 
-					<Entry />
+				<Entry />
 
-					<div className='flex justify-between py-3 text-blue-100'>
+				<div className='flex justify-between py-3'>
+					<div>
 						<IconButton
 							icon={!isHistoryVisible ? 'clock-rotate-left' : 'calculator'}
 							title={!isHistoryVisible ? 'Histórico' : 'Teclado'}
 							onClick={() => setIsHistoryVisible(!isHistoryVisible)}
 						/>
 
-						<IconButton
-							icon='delete-left'
-							title='Apagar'
-							onClick={() => handleKeyPress('Backspace')}
-						/>
+						<Link to='/menu'>
+							<IconButton icon='ellipsis' title='Menu' />
+						</Link>
 					</div>
-				</header>
 
-				<div className='w-80 h-[400px] relative'>
-					<Keyboard />
-
-					<History visible={isHistoryVisible} />
+					<IconButton
+						icon='delete-left'
+						title='Apagar'
+						onClick={() => handleKeyPress('Backspace')}
+					/>
 				</div>
+			</header>
+
+			<div className='w-80 h-[400px] relative'>
+				<Keyboard />
+
+				<History visible={isHistoryVisible} />
 			</div>
-		</div>
+		</>
 	)
 }
