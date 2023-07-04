@@ -14,7 +14,7 @@ export function App() {
 	return (
 		<CalculatorContextProvider>
 			<div className="w-screen h-screen flex justify-center items-center">
-				<div className="p-5 rounded-sm max-w-[362px] border border-zinc-700">
+				<div className="p-5 rounded-sm w-[362px] border border-zinc-700">
 					<RouterProvider router={router} />
 				</div>
 			</div>

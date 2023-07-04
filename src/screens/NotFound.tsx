@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export function NotFound() {
 	return (
-		<div className="text-center py-56 px-12">
+		<div className="text-center py-56">
 			<h1 className="text-4xl mb-4">
 				Erro 404
 			</h1>
