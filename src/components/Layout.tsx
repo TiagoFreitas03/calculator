@@ -2,11 +2,13 @@ import { Link } from "react-router-dom"
 
 interface LayoutProps {
 	Screen: () => JSX.Element
-	title: string
+	title?: string
 	navigateTo?: string
 }
 
 export function Layout({ Screen, title, navigateTo = '/menu' }: LayoutProps) {
+	window.onkeydown = () => {}
+
 	return (
 		<>
 			<header className="flex justify-between items-center mb-4">
