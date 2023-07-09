@@ -1,9 +1,8 @@
+import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
 import { LETTERS, NUMBERS, TEXT_KEYS } from "../constants/KEYS"
 import { onlyNumbers } from "../utils/only-numbers"
 
-type EntryType = 'dec' | 'bin' | 'oct' | 'hex'
-
-export function useKeyboard(type: EntryType = 'dec') {
+export function useKeyboard(type: ENTRY_TYPE = 'bin') {
 	function handleKeyPress(text: string, key: string) {
 		if (TEXT_KEYS.includes(key)) {
 			return append(text, key)
@@ -70,10 +69,10 @@ export function useKeyboard(type: EntryType = 'dec') {
 
 	function validateEntry(text: string) {
 		switch (type) {
-			case 'bin': return (/^[01]+$/g).test(text)
-			case 'oct': return (/^[0-7]+$/g).test(text)
-			case 'dec': return (/^[0-9]+$/g).test(text)
-			case 'hex': return (/^[0-9A-Fa-f]+$/g).test(text)
+			case 'bin': return (/^\-?[01]*\.?[01]*$/).test(text)
+			case 'oct': return (/^\-?[0-7]*\.?[0-7]*$/).test(text)
+			case 'dec': return (/^\-?[0-9]*\.?[0-9]*$/).test(text)
+			case 'hex': return (/^\-?[0-9A-Fa-f]*\.?[0-9A-Fa-f]*$/).test(text)
 		}
 	}
 

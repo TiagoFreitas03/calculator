@@ -1,18 +1,20 @@
 import clsx from "clsx"
 
 import { useKeyboard } from "../hooks/useKeyboard"
-import { maskNumber } from "../utils/masks"
 import { BUTTONS } from "../constants/BUTTONS"
+import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
+import { maskNumber } from "../utils/masks"
 
 interface EntryProps {
 	text: string
 	clear?: boolean
+	type?: ENTRY_TYPE
 	onTextChange: (text: string) => void
 	onKeyPress: (key: string) => void
 }
 
-export function Entry({ text, clear = false, onTextChange, onKeyPress }: EntryProps) {
-	const { handleKeyPress } = useKeyboard()
+export function Entry({ text, type = 'dec', clear = false, onTextChange, onKeyPress }: EntryProps) {
+	const { handleKeyPress } = useKeyboard(type)
 
 	window.onkeydown = (event) => {
 		const { key } = event

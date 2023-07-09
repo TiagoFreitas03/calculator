@@ -3,12 +3,14 @@ import { useKeyboard } from "../hooks/useKeyboard"
 import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
 import { NUMPAD_KEYS } from "../constants/BUTTONS"
 import { Button } from "../interfaces/Button"
+import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
 
 interface KeyboardProps {
 	layout: 'CALCULATOR' | 'COMMON' | 'HEX'
 	entry: string
 	clear?: boolean
 	disabledKeys?: string[]
+	type?: ENTRY_TYPE
 	onChangeEntry: (text: string) => void
 	onButtonClick: (key: string) => void
 }
@@ -18,12 +20,13 @@ export function Keyboard({
 	entry,
 	clear = false,
 	disabledKeys = [],
+	type = 'dec',
 	onChangeEntry,
 	onButtonClick
 }: KeyboardProps) {
 	const { topKeys, rightKeys } = KEYBOARD_LAYOUTS[layout]
 
-	const { handleKeyPress } = useKeyboard()
+	const { handleKeyPress } = useKeyboard(type)
 
 	function renderButtons(buttons: Button[]) {
 		return buttons.map(({ key, icon, text, changeEntry = true }) => {
