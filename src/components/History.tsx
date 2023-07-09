@@ -1,20 +1,21 @@
 import clsx from "clsx"
 
-import { useCalculator } from "../contexts/CalculatorContext"
 import { OperatorIcon } from "./OperatorIcon"
-import { maskExpression,maskNumber } from "../utils/masks"
+import { useCalculator } from "../contexts/CalculatorContext"
 import { OPERATIONS } from "../constants/KEYS"
+import { maskExpression,maskNumber } from "../utils/masks"
 
 interface HistoryProps {
 	visible: boolean
+	onSelect: (expression: string[], result: string) => void
 }
 
-export function History({ visible }: HistoryProps) {
+export function History({ visible, onSelect }: HistoryProps) {
 	if (!visible) {
 		return <></>
 	}
 
-	const { history, clearHistory, restoreHistory } = useCalculator()
+	const { history, clearHistory } = useCalculator()
 
 	return (
 		<div className='w-60 h-full absolute z-10 bg-black border-r border-zinc-800 p-2'>
@@ -31,7 +32,7 @@ export function History({ visible }: HistoryProps) {
 								<div
 									className="p-2 mr-2 text-right hover:bg-zinc-800 cursor-pointer"
 									key={JSON.stringify(math) + index}
-									onClick={() => restoreHistory(math)}
+									onClick={() => onSelect(math.expression.slice(), math.result)}
 								>
 									<div className="text-sm flex justify-end items-center">
 										{

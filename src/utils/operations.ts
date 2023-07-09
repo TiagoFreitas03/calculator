@@ -1,47 +1,4 @@
-import { NUMBERS, OPERATIONS } from "../constants/KEYS"
-import { onlyNumbers } from "./only-numbers"
-
-function append(entry: string, key: string) {
-	if (NUMBERS.includes(key)) { // 0..9
-		if (onlyNumbers(entry).length < 15) {
-			entry = entry === '0' ? key : entry + key
-		}
-	}
-	else if (key === '.' && !entry.includes(key)) {
-		if (onlyNumbers(entry).length < 15) {
-			entry = entry + key
-		}
-	}
-
-	return entry
-}
-
-function erase(entry: string) {
-	if (entry.length > 1) {
-		entry = entry.substring(0, entry.length - 1)
-
-		if (entry === '-') {
-			entry = '0'
-		}
-	}
-	else if (entry !== '0') {
-		entry = '0'
-	}
-
-	return entry
-}
-
-function percent(value: string) {
-	const num = Number(value)
-
-	return isNaN(num) ? value : (num * 0.01).toString()
-}
-
-function reverse(value: string) {
-	const num = Number(value)
-
-	return isNaN(num) ? value : (num * (-1)).toString()
-}
+import { OPERATIONS } from "../constants/KEYS"
 
 function calculate(expression: string[]) {
 	let left = 0, right = 0
@@ -115,4 +72,4 @@ function addOperator(expression: string[], entry: string, operator: string, repl
 	}
 }
 
-export { append, erase, percent, reverse, calculate, addOperator }
+export { calculate, addOperator }

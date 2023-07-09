@@ -1,18 +1,19 @@
 import clsx from "clsx"
 
-import { useCalculator } from "../contexts/CalculatorContext"
+import { OperatorIcon } from "./OperatorIcon"
 import { OPERATIONS } from "../constants/KEYS"
 import { maskExpression } from "../utils/masks"
-import { OperatorIcon } from "./OperatorIcon"
 
-export function Expression() {
-	const { expression } = useCalculator()
+interface ExpressionProps {
+	value: string[]
+}
 
-	const maskedExpression = maskExpression(expression.slice())
+export function Expression({ value }: ExpressionProps) {
+	const maskedExpression = maskExpression(value.slice())
 	const expressionLength = maskedExpression.join(' ').length
 
 	return (
-		<div className={clsx('flex items-center justify-end h-8 mb-2', {
+		<div className={clsx('flex items-center justify-end h-8 mb-2 mr-1', {
 			'text-lg': expressionLength <= 32,
 			'': expressionLength > 32 && expressionLength <= 36,
 			'text-sm': expressionLength > 36 && expressionLength <= 41,

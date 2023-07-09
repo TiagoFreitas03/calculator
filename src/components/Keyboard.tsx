@@ -1,22 +1,62 @@
-import { useCalculator } from "../contexts/CalculatorContext"
-import { Button } from "./Button"
-import { BUTTONS } from '../constants/BUTTONS'
+import { KeyboardButton } from "./KeyboardButton"
+import { useKeyboard } from "../hooks/useKeyboard"
+import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
+import { NUMPAD_KEYS, Button } from "../constants/BUTTONS"
 
-export function Keyboard() {
-	const { handleKeyPress } = useCalculator()
+interface KeyboardProps {
+	layout: 'CALCULATOR' | 'COMMON' | 'HEX'
+	entry: string
+	clear?: boolean
+	disabledKeys?: string[]
+	onChangeEntry: (text: string) => void
+	onButtonClick: (key: string) => void
+}
+
+export function Keyboard({
+	layout,
+	entry,
+	clear = false,
+	disabledKeys = [],
+	onChangeEntry,
+	onButtonClick
+}: KeyboardProps) {
+	const { topKeys, rightKeys } = KEYBOARD_LAYOUTS[layout]
+
+	const { handleKeyPress } = useKeyboard()
+
+	function renderButtons(buttons: Button[]) {
+		return buttons.map(({ key, icon, text, changeEntry = true }) => {
+			return (
+				<KeyboardButton
+					key={key}
+					onClick={() => {
+						if (changeEntry) {
+							onChangeEntry(handleKeyPress(clear ? '0' : entry, key))
+						}
+						else {
+							onButtonClick(key)
+						}
+					}}
+					text={text ?? key}
+					icon={icon}
+					disabled={disabledKeys.includes(key)}
+					className={layout === 'CALCULATOR' ? 'h-16' : 'h-full'}
+				/>
+			)
+		})
+	}
 
 	return (
-		<div className="w-full h-full absolute top-0 left-0">
-			{
-				BUTTONS.map(({ key, icon, text }) => (
-					<Button
-						key={key}
-						onClick={() => handleKeyPress(key)}
-						text={text ?? key}
-						icon={icon}
-					/>
-				))
-			}
+		<div className="flex w-full h-full absolute top-0 left-0">
+			<div className="grid grid-cols-3">
+				{topKeys && renderButtons(topKeys.slice())}
+
+				{renderButtons(NUMPAD_KEYS.slice())}
+			</div>
+
+			<div className="flex flex-col justify-around">
+				{renderButtons(rightKeys.slice())}
+			</div>
 		</div>
 	)
 }
