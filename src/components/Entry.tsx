@@ -3,6 +3,7 @@ import clsx from "clsx"
 import { useKeyboard } from "../hooks/useKeyboard"
 import { BUTTONS } from "../constants/BUTTONS"
 import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
+import { KEYS } from "../constants/KEYS"
 import { maskNumber } from "../utils/masks"
 
 interface EntryProps {
@@ -18,6 +19,11 @@ export function Entry({ text, type = 'dec', clear = false, onTextChange, onKeyPr
 
 	window.onkeydown = (event) => {
 		const { key } = event
+
+		if (KEYS.includes(key)) {
+			event.preventDefault()
+		}
+
 		const button = BUTTONS.find(button => button.key === key)
 
 		if (!button) {

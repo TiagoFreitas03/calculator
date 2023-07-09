@@ -11,6 +11,7 @@ const TEXT_KEYS = [...NUMBERS, ...LETTERS, '.']
 const OPERATIONS = ['+', '-', '*', '/']
 
 export {
+	KEYS,
 	NUMBERS,
 	LETTERS,
 	OPERATIONS,
