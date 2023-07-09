@@ -13,16 +13,12 @@ export function App() {
 					<BrowserRouter>
 						<Routes>
 							{
-								routes.map(({ path, Screen, hideLayout, title = '', navigateTo }) => {
+								routes.map(({ path, hideLayout, Screen, ...rest }) => {
 									return (
 										<Route
 											key={path}
 											path={path}
-											element={
-												hideLayout ?
-													<Screen /> :
-													<Layout title={title} navigateTo={navigateTo} Screen={Screen} />
-											}
+											element={hideLayout ? <Screen /> : <Layout Screen={Screen} {...rest} />}
 										/>
 									)
 								})
