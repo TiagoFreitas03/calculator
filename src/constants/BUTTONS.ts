@@ -1,9 +1,4 @@
-export interface Button {
-	key: string
-	icon?: string
-	text?: string
-	changeEntry?: boolean
-}
+import { Button } from '../interfaces/Button'
 
 const NUMPAD_KEYS: Button[] = [
 	{ key: '7', icon: '7' },

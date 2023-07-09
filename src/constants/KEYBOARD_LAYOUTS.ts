@@ -1,5 +1,4 @@
 import {
-	Button,
 	BACKSPACE_BUTTON,
 	CLEAR_ALL_BUTTON,
 	CLEAR_ENTRY_BUTTON,
@@ -8,6 +7,7 @@ import {
 	OPERATOR_KEYS,
 	PERCENT_BUTTON
 } from './BUTTONS'
+import { Button } from '../interfaces/Button'
 
 interface KeyboardLayout {
 	topKeys?: Button[]

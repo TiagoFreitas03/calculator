@@ -1,7 +1,8 @@
 import { KeyboardButton } from "./KeyboardButton"
 import { useKeyboard } from "../hooks/useKeyboard"
 import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
-import { NUMPAD_KEYS, Button } from "../constants/BUTTONS"
+import { NUMPAD_KEYS } from "../constants/BUTTONS"
+import { Button } from "../interfaces/Button"
 
 interface KeyboardProps {
 	layout: 'CALCULATOR' | 'COMMON' | 'HEX'
