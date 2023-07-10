@@ -1,12 +1,13 @@
+import { ReactNode } from "react"
 import { Link } from "react-router-dom"
 
 interface LayoutProps {
-	Screen: () => JSX.Element
+	children: ReactNode
 	title?: string
 	navigateTo?: string
 }
 
-export function Layout({ Screen, title, navigateTo = '/menu' }: LayoutProps) {
+export function Layout({ children, title, navigateTo = '/menu' }: LayoutProps) {
 	window.onkeydown = () => {}
 
 	return (
@@ -23,7 +24,7 @@ export function Layout({ Screen, title, navigateTo = '/menu' }: LayoutProps) {
 				<span className="fas fa-star text-black" />
 			</header>
 
-			<Screen />
+			{children}
 		</>
 	)
 }
