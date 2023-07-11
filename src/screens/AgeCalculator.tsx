@@ -5,6 +5,8 @@ import { ptBR } from 'date-fns/locale'
 import { CompleteDateDiff, DateDiff } from "../interfaces/DateDiff"
 import { calculateCompleteDateDiff, calculateDateDiff } from "../utils/calculate-date-diff"
 import { AgeDetail } from "../components/AgeDetail"
+import { Input } from "../components/Input"
+import { Button } from "../components/Button"
 
 const TODAY = new Date(), EXAMPLE_DATE = new Date(2000, 2, 26)
 
@@ -62,23 +64,16 @@ export function AgeCalculator() {
 		<>
 			<form onSubmit={handleCalculateSubmit}>
 				<div className="flex mt-6">
-					<label>Data de nascimento</label>
-
-					<input
+					<Input
+						label="Data de nascimento"
 						type="date"
 						value={birthDate}
 						onChange={e => setBirthDate(e.target.value)}
-						className="flex-1 ml-4 bg-black text-right outline-none text-blue-300"
 						autoFocus
 					/>
 				</div>
 
-				<button
-					className="w-full mt-4 bg-blue-400 font-semibold text-zinc-900 py-2 rounded-full"
-					type="submit"
-				>
-					Calcular
-				</button>
+				<Button type="submit" title="Calcular" />
 			</form>
 
 			<div className="mt-4 bg-zinc-900 rounded-lg py-1">
