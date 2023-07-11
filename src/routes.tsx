@@ -5,6 +5,7 @@ import { NotFound } from "./screens/NotFound"
 import { Menu } from "./screens/Menu"
 import { CalculatorContextProvider } from "./contexts/CalculatorContext"
 import { AgeCalculator } from "./screens/AgeCalculator"
+import { DateDiffCalculator } from "./screens/DateDiffCalculator"
 
 interface AppRoute {
 	path: string
@@ -27,5 +28,6 @@ export const routes: AppRoute[] = [
 		navigateTo: '/'
 	},
 	{ path: '/age', children: <AgeCalculator />, title: 'Idade' },
+	{ path: '/date-diff', children: <DateDiffCalculator />, title: 'Data' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
