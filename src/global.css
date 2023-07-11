@@ -25,3 +25,7 @@ span {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-blue-500;
 }
+
+::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+}
