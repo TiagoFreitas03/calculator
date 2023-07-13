@@ -6,6 +6,7 @@ import { Menu } from "./screens/Menu"
 import { CalculatorContextProvider } from "./contexts/CalculatorContext"
 import { AgeCalculator } from "./screens/AgeCalculator"
 import { DateDiffCalculator } from "./screens/DateDiffCalculator"
+import { TemperatureConverter } from "./screens/TemperatureConverter"
 
 interface AppRoute {
 	path: string
@@ -29,5 +30,6 @@ export const routes: AppRoute[] = [
 	},
 	{ path: '/age', children: <AgeCalculator />, title: 'Idade' },
 	{ path: '/date-diff', children: <DateDiffCalculator />, title: 'Data' },
+	{ path: '/temperature', children: <TemperatureConverter />, title: 'Temperatura' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
