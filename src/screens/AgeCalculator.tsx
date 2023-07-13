@@ -1,9 +1,7 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 import { isValid, isBefore, format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 
-import { CompleteDateDiff, DateDiff } from "../interfaces/DateDiff"
-import { calculateCompleteDateDiff, calculateDateDiff } from "../utils/calculate-date-diff"
+import { calculateCompleteDateDiff, calculateNextBirthday } from "../utils/calculate-date-diff"
 import { AgeDetail } from "../components/AgeDetail"
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
@@ -13,30 +11,9 @@ const TODAY = new Date(), EXAMPLE_DATE = new Date(2000, 2, 26)
 TODAY.setHours(0, 0, 0, 0)
 
 export function AgeCalculator() {
-	window.onkeydown = () => {}
-
 	const [birthDate, setBirthDate] = useState(format(EXAMPLE_DATE, 'yyyy-MM-dd'))
-	const [age, setAge] = useState<CompleteDateDiff>()
-	const [nextBirthday, setNextBirthday] = useState<DateDiff>()
-	const [nextBirthdayWeekday, setNextBirthdayWeekday] = useState('')
-
-	useEffect(() => {
-		calculate(EXAMPLE_DATE.getTime())
-	}, [])
-
-	function calculate(timestamp: number) {
-		const date = new Date(timestamp)
-		setAge(calculateCompleteDateDiff(date.getTime(), TODAY.getTime()))
-
-		date.setFullYear(TODAY.getFullYear())
-
-		if (isBefore(date, TODAY)) {
-			date.setFullYear(TODAY.getFullYear() + 1)
-		}
-
-		setNextBirthdayWeekday(format(date, 'EEEE', { locale: ptBR }))
-		setNextBirthday(calculateDateDiff(TODAY.getTime(), date.getTime()))
-	}
+	const [age, setAge] = useState(calculateCompleteDateDiff(EXAMPLE_DATE.getTime(), TODAY.getTime()))
+	const [nextBirthday, setNextBirthday] = useState(calculateNextBirthday(EXAMPLE_DATE.getTime()))
 
 	function handleCalculateSubmit(e: FormEvent) {
 		e.preventDefault()
@@ -53,11 +30,8 @@ export function AgeCalculator() {
 			return
 		}
 
-		calculate(date.getTime())
-	}
-
-	if (!age || !nextBirthday) {
-		return <></>
+		setAge(calculateCompleteDateDiff(date.getTime(), TODAY.getTime()))
+		setNextBirthday(calculateNextBirthday(date.getTime()))
 	}
 
 	return (
@@ -83,7 +57,6 @@ export function AgeCalculator() {
 
 						<div className="flex gap-2 my-4 items-center">
 							<span className="text-4xl text-blue-400">{age.years}</span>
-
 							<span>anos</span>
 						</div>
 
@@ -98,7 +71,7 @@ export function AgeCalculator() {
 
 						<i className="fas fa-cake-candles bg-blue-300 text-zinc-900 p-3 rounded-full" />
 
-						<span>{nextBirthdayWeekday}</span>
+						<span>{nextBirthday.weekday}</span>
 
 						<span className="text-sm">
 							{nextBirthday.months} {nextBirthday.months === 1 ? 'mês' : 'meses'} |{' '}
