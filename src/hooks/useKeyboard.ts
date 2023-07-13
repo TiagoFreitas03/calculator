@@ -1,8 +1,8 @@
-import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
+import { EntryType } from "../types/EntryType"
 import { LETTERS, NUMBERS, TEXT_KEYS } from "../constants/KEYS"
 import { onlyNumbers } from "../utils/only-numbers"
 
-export function useKeyboard(type: ENTRY_TYPE = 'bin') {
+export function useKeyboard(type: EntryType = 'bin') {
 	function handleKeyPress(text: string, key: string) {
 		if (TEXT_KEYS.includes(key)) {
 			return append(text, key)

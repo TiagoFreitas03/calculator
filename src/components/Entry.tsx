@@ -2,14 +2,14 @@ import clsx from "clsx"
 
 import { useKeyboard } from "../hooks/useKeyboard"
 import { BUTTONS } from "../constants/BUTTONS"
-import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
+import { EntryType } from "../types/EntryType"
 import { KEYS } from "../constants/KEYS"
 import { maskNumber } from "../utils/masks"
 
 interface EntryProps {
 	text: string
 	clear?: boolean
-	type?: ENTRY_TYPE
+	type?: EntryType
 	onTextChange: (text: string) => void
 	onKeyPress: (key: string) => void
 }

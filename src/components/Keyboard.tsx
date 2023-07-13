@@ -3,14 +3,14 @@ import { useKeyboard } from "../hooks/useKeyboard"
 import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
 import { NUMPAD_KEYS } from "../constants/BUTTONS"
 import { Button } from "../interfaces/Button"
-import { ENTRY_TYPE } from "../constants/ENTRY_TYPE"
+import { EntryType } from "../types/EntryType"
 
 interface KeyboardProps {
 	layout: 'CALCULATOR' | 'COMMON' | 'HEX'
 	entry: string
 	clear?: boolean
 	disabledKeys?: string[]
-	type?: ENTRY_TYPE
+	type?: EntryType
 	onChangeEntry: (text: string) => void
 	onButtonClick: (key: string) => void
 }
