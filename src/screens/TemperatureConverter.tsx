@@ -59,12 +59,7 @@ export function TemperatureConverter() {
 			</div>
 
 			<div className='w-80 h-[300px] relative'>
-				<Keyboard
-					layout="COMMON"
-					entry={input}
-					onChangeEntry={text => setInput(text)}
-					onButtonClick={key => {}}
-				/>
+				<Keyboard layout="COMMON" entry={input} onChangeEntry={text => setInput(text)} />
 			</div>
 		</>
 	)
