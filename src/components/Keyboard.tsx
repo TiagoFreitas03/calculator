@@ -12,7 +12,7 @@ interface KeyboardProps {
 	disabledKeys?: string[]
 	type?: EntryType
 	onChangeEntry: (text: string) => void
-	onButtonClick: (key: string) => void
+	onButtonClick?: (key: string) => void
 }
 
 export function Keyboard({
@@ -37,7 +37,7 @@ export function Keyboard({
 						if (changeEntry) {
 							onChangeEntry(handleKeyPress(clear ? '0' : entry, key))
 						}
-						else {
+						else if (onButtonClick) {
 							onButtonClick(key)
 						}
 					}}

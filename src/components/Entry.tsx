@@ -2,8 +2,8 @@ import clsx from "clsx"
 
 import { useKeyboard } from "../hooks/useKeyboard"
 import { BUTTONS } from "../constants/BUTTONS"
-import { EntryType } from "../types/EntryType"
 import { KEYS } from "../constants/KEYS"
+import { EntryType } from "../types/EntryType"
 import { maskNumber } from "../utils/masks"
 
 interface EntryProps {
@@ -11,7 +11,7 @@ interface EntryProps {
 	clear?: boolean
 	type?: EntryType
 	onTextChange: (text: string) => void
-	onKeyPress: (key: string) => void
+	onKeyPress?: (key: string) => void
 }
 
 export function Entry({ text, type = 'dec', clear = false, onTextChange, onKeyPress }: EntryProps) {
@@ -33,7 +33,7 @@ export function Entry({ text, type = 'dec', clear = false, onTextChange, onKeyPr
 		if (button.changeEntry) {
 			onTextChange(handleKeyPress(clear ? '0' : text, key))
 		}
-		else {
+		else if (onKeyPress) {
 			onKeyPress(key)
 		}
 	}
