@@ -1,4 +1,5 @@
-import { differenceInDays, differenceInMonths, differenceInYears } from "date-fns"
+import { differenceInDays, differenceInMonths, differenceInYears, format } from "date-fns"
+import { ptBR } from 'date-fns/locale'
 
 import { CompleteDateDiff, DateDiff } from '../interfaces/DateDiff'
 
@@ -42,4 +43,23 @@ function calculateDateDiff(startTime: number, endTime: number): DateDiff {
 	return { years, months, days }
 }
 
-export { calculateDateDiff, calculateCompleteDateDiff }
+function calculateNextBirthday(birthTime: number) {
+	const today = new Date()
+	today.setHours(0, 0, 0, 0)
+
+	const nextBirthday = new Date(birthTime)
+	nextBirthday.setFullYear(today.getFullYear())
+
+	if (nextBirthday.getTime() < today.getTime()) {
+		nextBirthday.setFullYear(today.getFullYear() + 1)
+	}
+
+	const diff = calculateDateDiff(today.getTime(), nextBirthday.getTime())
+
+	return {
+		...diff,
+		weekday: format(nextBirthday, 'EEEE', { locale: ptBR })
+	}
+}
+
+export { calculateDateDiff, calculateCompleteDateDiff, calculateNextBirthday }
