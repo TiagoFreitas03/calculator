@@ -13,10 +13,10 @@ export function Output({ value }: OutputProps) {
 	return (
 		<span
 			className={clsx("pr-1 h-14 flex items-center justify-end", {
-				"text-4xl": outputLength <= 15,
-				"text-3xl": outputLength > 15 && outputLength <= 18,
-				"text-2xl": outputLength > 18 && outputLength <= 21,
-				"text-xl": outputLength > 21
+				"text-3xl": outputLength <= 15,
+				"text-2xl": outputLength > 15 && outputLength <= 18,
+				"text-xl": outputLength > 18 && outputLength <= 21,
+				"text-lg": outputLength > 21
 			})}
 		>
 			{maskedOutput}
