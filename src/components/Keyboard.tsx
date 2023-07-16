@@ -34,6 +34,10 @@ export function Keyboard({
 				<KeyboardButton
 					key={key}
 					onClick={() => {
+						if (disabledKeys.includes(key)) {
+							return
+						}
+
 						if (changeEntry) {
 							onChangeEntry(handleKeyPress(clear ? '0' : entry, key))
 						}
