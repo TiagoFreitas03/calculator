@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const options = [
 	{ link: '/age', icon: 'cake-candles', title: 'Idade' },
 	{ link: '/area', icon: 'up-right-and-down-left-from-center', title: 'Área' },
-	{ link: '/imc', icon: 'weight-scale', title: 'IMC' },
+	{ link: '/bmi', icon: 'weight-scale', title: 'IMC' },
 	{ link: '/data', icon: 'database', title: 'Dados' },
 	{ link: '/date-diff', icon: 'calendar-days', title: 'Data' },
 	{ link: '/discount', icon: 'tag', title: 'Desconto' },

@@ -8,6 +8,7 @@ import { AgeCalculator } from "./screens/AgeCalculator"
 import { DateDiffCalculator } from "./screens/DateDiffCalculator"
 import { TemperatureConverter } from "./screens/TemperatureConverter"
 import { DataUnitConverter } from "./screens/DataUnitConverter"
+import { BMICalculator } from "./screens/BMICalculator"
 
 interface AppRoute {
 	path: string
@@ -33,5 +34,6 @@ export const routes: AppRoute[] = [
 	{ path: '/date-diff', children: <DateDiffCalculator />, title: 'Data' },
 	{ path: '/temperature', children: <TemperatureConverter />, title: 'Temperatura' },
 	{ path: '/data', children: <DataUnitConverter />, title: 'Dados' },
+	{ path: '/bmi', children: <BMICalculator />, title: 'IMC' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
