@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 
 import { DataUnit, units } from "../types/DataUnit"
-import { convertDataUnit } from "../utils/convert-data-unit"
 import { Select } from "../components/Select"
 import { Entry } from "../components/Entry"
 import { Output } from "../components/Output"
@@ -11,14 +10,32 @@ export function DataUnitConverter() {
 	const [inputUnit, setInputUnit] = useState<DataUnit>('Kilobyte')
 	const [outputUnit, setOutputUnit] = useState<DataUnit>('Byte')
 	const [input, setInput] = useState('1')
-	const [output, setOutput] = useState(convertDataUnit({ input, inputUnit, outputUnit }))
+	const [output, setOutput] = useState('')
 
 	const inputSymbol = String(inputUnit).substring(0, 1)
 	const outputSymbol = String(outputUnit).substring(0, 1)
 
 	useEffect(() => {
-		setOutput(convertDataUnit({ input, inputUnit, outputUnit }))
+		setOutput(convertDataUnit())
 	}, [input, inputUnit, outputUnit])
+
+	function convertDataUnit() {
+		if (inputUnit === outputUnit || Number(input) === 0) {
+			return input
+		}
+
+		const inputUnitPos = units.findIndex(u => u == inputUnit)
+		const outputUnitPos = units.findIndex(u => u == outputUnit)
+
+		if (inputUnitPos === -1 || outputUnitPos === -1) {
+			return input
+		}
+
+		const value = Number(input)
+		const result = value * Math.pow(1024, inputUnitPos - outputUnitPos)
+
+		return result.toString()
+	}
 
 	return (
 		<>
@@ -57,7 +74,12 @@ export function DataUnitConverter() {
 			</div>
 
 			<div className='w-80 h-[300px] relative'>
-				<Keyboard layout="COMMON" entry={input} onChangeEntry={text => setInput(text)} />
+				<Keyboard
+					layout="COMMON"
+					entry={input}
+					onChangeEntry={text => setInput(text)}
+					disabledKeys={['+-']}
+				/>
 			</div>
 		</>
 	)
