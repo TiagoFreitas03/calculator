@@ -1,4 +1,4 @@
-export interface Button {
+export type Button = {
 	key: string
 	icon?: string
 	text?: string

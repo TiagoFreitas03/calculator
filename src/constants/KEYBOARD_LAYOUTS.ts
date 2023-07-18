@@ -7,7 +7,7 @@ import {
 	OPERATOR_KEYS,
 	PERCENT_BUTTON
 } from './BUTTONS'
-import { Button } from '../interfaces/Button'
+import { Button } from '../types/Button'
 
 interface KeyboardLayout {
 	topKeys?: Button[]

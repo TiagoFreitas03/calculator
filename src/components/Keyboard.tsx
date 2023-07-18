@@ -2,7 +2,7 @@ import { KeyboardButton } from "./KeyboardButton"
 import { useKeyboard } from "../hooks/useKeyboard"
 import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
 import { NUMPAD_KEYS } from "../constants/BUTTONS"
-import { Button } from "../interfaces/Button"
+import { Button } from "../types/Button"
 import { EntryType } from "../types/EntryType"
 
 interface KeyboardProps {
@@ -16,13 +16,7 @@ interface KeyboardProps {
 }
 
 export function Keyboard({
-	layout,
-	entry,
-	clear = false,
-	disabledKeys = [],
-	type = 'dec',
-	onChangeEntry,
-	onButtonClick
+	layout, entry, clear = false, disabledKeys = [], type = 'dec', onChangeEntry, onButtonClick
 }: KeyboardProps) {
 	const { topKeys, rightKeys } = KEYBOARD_LAYOUTS[layout]
 
