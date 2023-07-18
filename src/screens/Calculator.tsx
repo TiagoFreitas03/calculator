@@ -86,7 +86,7 @@ export function Calculator() {
 					text={entry}
 					clear={clearEntry}
 					onTextChange={text => handleEntryChange(text)}
-					onKeyPress={key => handleButtonPress(key)}
+					onKeyClick={key => handleButtonPress(key)}
 				/>
 
 				<div className='flex justify-between py-3'>
