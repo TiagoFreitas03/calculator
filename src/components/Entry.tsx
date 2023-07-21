@@ -13,6 +13,7 @@ interface EntryProps extends HTMLAttributes<HTMLSpanElement> {
 	type?: EntryType
 	active?: boolean
 	cssClasses?: string
+	allowDecimals?: boolean
 	onTextChange: (text: string) => void
 	onKeyClick?: (key: string) => void
 }
@@ -20,14 +21,15 @@ interface EntryProps extends HTMLAttributes<HTMLSpanElement> {
 export function Entry({
 	text,
 	type = 'dec',
-	clear = false,
+	clear,
 	active = true,
 	cssClasses,
+	allowDecimals = true,
 	onTextChange,
 	onKeyClick,
 	...rest
 }: EntryProps) {
-	const { handleKeyPress } = useKeyboard(type)
+	const { handleKeyPress } = useKeyboard(type, allowDecimals)
 
 	if (active) {
 		window.onkeydown = (event) => {
@@ -39,27 +41,25 @@ export function Entry({
 
 			const button = BUTTONS.find(button => button.key === key)
 
-			if (!button) {
-				return
-			}
-
-			if (button.changeEntry) {
-				onTextChange(handleKeyPress(clear ? '0' : text, key))
-			}
-			else if (onKeyClick) {
-				onKeyClick(key)
+			if (button) {
+				if (button.changeEntry) {
+					onTextChange(handleKeyPress(clear ? '0' : text, key))
+				}
+				else if (onKeyClick) {
+					onKeyClick(key)
+				}
 			}
 		}
 	}
 
-	const maskedEntry = maskNumber(text)
+	const maskedEntry = maskNumber(text, false, type)
 	const entryLength = maskedEntry.length
 
 	return (
 		<span
 			className={clsx("pr-1 h-14 flex items-center justify-end cursor-pointer " + cssClasses, {
-				"text-4xl": entryLength <= 15,
-				"text-3xl": entryLength > 15 && entryLength <= 18,
+				"text-4xl": entryLength <= 15 && type !== 'hex',
+				"text-3xl": (entryLength > 15 && entryLength <= 18) || (type === 'hex'),
 				"text-2xl": entryLength > 18 && entryLength <= 21,
 				"text-xl": entryLength > 21
 			})}

@@ -1,13 +1,15 @@
 import clsx from "clsx"
 
 import { maskNumber } from "../utils/masks"
+import { EntryType } from "../types/EntryType"
 
 interface OutputProps {
 	value: string
+	type?: EntryType
 }
 
-export function Output({ value }: OutputProps) {
-	const maskedOutput = maskNumber(value)
+export function Output({ value, type = 'dec' }: OutputProps) {
+	const maskedOutput = maskNumber(value, false, type)
 	const outputLength = maskedOutput.length
 
 	return (
