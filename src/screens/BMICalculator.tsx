@@ -18,6 +18,10 @@ export function BMICalculator() {
 	}
 
 	function handleParamChange(value: string) {
+		if (bmi) {
+			setBmi(undefined)
+		}
+
 		if (validateParam(value)) {
 			if (activeParam === 'w') {
 				setWeight(value)
@@ -52,7 +56,7 @@ export function BMICalculator() {
 	function calculateBMI() {
 		const nHeight = Number(height) / 100
 
-		return Number(weight) / (nHeight * nHeight)
+		return Number((Number(weight) / (nHeight * nHeight)).toFixed(1))
 	}
 
 	return (
