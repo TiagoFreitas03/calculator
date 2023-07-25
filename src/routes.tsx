@@ -10,6 +10,7 @@ import { TemperatureConverter } from "./screens/TemperatureConverter"
 import { DataUnitConverter } from "./screens/DataUnitConverter"
 import { BMICalculator } from "./screens/BMICalculator"
 import { NumericBaseConverter } from "./screens/NumericBaseConverter"
+import { DiscountCalculator } from "./screens/DiscountCalculator"
 
 interface AppRoute {
 	path: string
@@ -37,5 +38,6 @@ export const routes: AppRoute[] = [
 	{ path: '/data', children: <DataUnitConverter />, title: 'Dados' },
 	{ path: '/bmi', children: <BMICalculator />, title: 'IMC' },
 	{ path: '/number-base', children: <NumericBaseConverter />, title: 'Base numérica' },
+	{ path: '/discount', children: <DiscountCalculator />, title: 'Desconto' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
