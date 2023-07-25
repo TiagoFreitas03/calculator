@@ -10,10 +10,19 @@ function maskExpression(expression: string[]) {
 	return expression
 }
 
-function maskNumber(str: string, parenthesis: boolean = false, base: EntryType = 'dec') {
+function maskNumber(
+	str: string,
+	parenthesis: boolean = false,
+	base: EntryType = 'dec',
+	decimalPlaces?: number
+) {
 	const maskDecimal = () => {
 		if (isNaN(Number(str)) || !(/^-?\d*\.?\d+.?$/).test(str)) {
 			return str
+		}
+
+		if (decimalPlaces) {
+			str = Number(str).toFixed(decimalPlaces)
 		}
 
 		const decimalSeparatorPos = str.indexOf('.')
