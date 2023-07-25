@@ -14,6 +14,7 @@ interface EntryProps extends HTMLAttributes<HTMLSpanElement> {
 	active?: boolean
 	cssClasses?: string
 	allowDecimals?: boolean
+	small?: boolean
 	onTextChange: (text: string) => void
 	onKeyClick?: (key: string) => void
 }
@@ -25,6 +26,7 @@ export function Entry({
 	active = true,
 	cssClasses,
 	allowDecimals = true,
+	small = false,
 	onTextChange,
 	onKeyClick,
 	...rest
@@ -55,7 +57,11 @@ export function Entry({
 	const maskedEntry = maskNumber(text, false, type)
 	const entryLength = maskedEntry.length
 
-	return (
+	return small ? (
+		<span className={"cursor-pointer " + cssClasses} {...rest}>
+			{maskedEntry}
+		</span>
+	) : (
 		<span
 			className={clsx("pr-1 h-14 flex items-center justify-end cursor-pointer " + cssClasses, {
 				"text-4xl": entryLength <= 15 && type !== 'hex',
