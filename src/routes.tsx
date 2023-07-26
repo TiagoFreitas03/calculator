@@ -11,6 +11,7 @@ import { DataUnitConverter } from "./screens/DataUnitConverter"
 import { BMICalculator } from "./screens/BMICalculator"
 import { NumericBaseConverter } from "./screens/NumericBaseConverter"
 import { DiscountCalculator } from "./screens/DiscountCalculator"
+import { TimeConverter } from "./screens/TimeConverter"
 
 interface AppRoute {
 	path: string
@@ -39,5 +40,6 @@ export const routes: AppRoute[] = [
 	{ path: '/bmi', children: <BMICalculator />, title: 'IMC' },
 	{ path: '/number-base', children: <NumericBaseConverter />, title: 'Base numérica' },
 	{ path: '/discount', children: <DiscountCalculator />, title: 'Desconto' },
+	{ path: '/time', children: <TimeConverter />, title: 'Tempo' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
