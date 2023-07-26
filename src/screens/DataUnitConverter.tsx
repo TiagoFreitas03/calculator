@@ -73,7 +73,7 @@ export function DataUnitConverter() {
 				</div>
 			</div>
 
-			<div className='w-80 h-[300px] relative'>
+			<div className='w-80 h-[310px] relative'>
 				<Keyboard
 					layout="COMMON"
 					entry={input}
