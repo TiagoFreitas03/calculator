@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 
-import { Calculator } from "./screens/Calculator"
 import { NotFound } from "./screens/NotFound"
+import { Calculator } from "./screens/Calculator"
 import { Menu } from "./screens/Menu"
 import { CalculatorContextProvider } from "./contexts/CalculatorContext"
 import { AgeCalculator } from "./screens/AgeCalculator"
@@ -12,6 +12,7 @@ import { BMICalculator } from "./screens/BMICalculator"
 import { NumericBaseConverter } from "./screens/NumericBaseConverter"
 import { DiscountCalculator } from "./screens/DiscountCalculator"
 import { TimeConverter } from "./screens/TimeConverter"
+import { WeightConverter } from "./screens/WeightConverter"
 
 interface AppRoute {
 	path: string
@@ -41,5 +42,6 @@ export const routes: AppRoute[] = [
 	{ path: '/number-base', children: <NumericBaseConverter />, title: 'Base numérica' },
 	{ path: '/discount', children: <DiscountCalculator />, title: 'Desconto' },
 	{ path: '/time', children: <TimeConverter />, title: 'Tempo' },
+	{ path: '/weight', children: <WeightConverter />, title: 'Massa' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
