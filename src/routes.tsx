@@ -13,6 +13,7 @@ import { NumericBaseConverter } from "./screens/NumericBaseConverter"
 import { DiscountCalculator } from "./screens/DiscountCalculator"
 import { TimeConverter } from "./screens/TimeConverter"
 import { WeightConverter } from "./screens/WeightConverter"
+import { SpeedConverter } from "./screens/SpeedConverter"
 
 interface AppRoute {
 	path: string
@@ -43,5 +44,6 @@ export const routes: AppRoute[] = [
 	{ path: '/discount', children: <DiscountCalculator />, title: 'Desconto' },
 	{ path: '/time', children: <TimeConverter />, title: 'Tempo' },
 	{ path: '/weight', children: <WeightConverter />, title: 'Massa' },
+	{ path: '/speed', children: <SpeedConverter />, title: 'Velocidade' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
