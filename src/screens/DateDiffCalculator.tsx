@@ -1,19 +1,28 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { format, isAfter, isValid } from "date-fns"
 import { ptBR } from 'date-fns/locale'
 
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
 import { calculateDateDiff } from "../utils/calculate-date-diff"
+import { DateDiff } from "../types/DateDiff"
 
 const TODAY = new Date()
 
 export function DateDiffCalculator() {
 	const [from, setFrom] = useState(format(TODAY, 'yyyy-MM-dd'))
 	const [to, setTo] = useState(format(TODAY, 'yyyy-MM-dd'))
-	const [diff, setDiff] = useState(calculateDateDiff(TODAY.getTime(), TODAY.getTime()))
+	const [diff, setDiff] = useState<DateDiff>()
 	const [fromStr, setFromStr] = useState(formatDate(TODAY.getTime()))
 	const [toStr, setToStr] = useState(formatDate(TODAY.getTime()))
+
+	useEffect(() => {
+		setDiff(calculateDateDiff(TODAY.getTime(), TODAY.getTime()))
+	}, [])
+
+	if (!diff) {
+		return <></>
+	}
 
 	function formatDate(date: number) {
 		return format(new Date(date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })

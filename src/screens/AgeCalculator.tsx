@@ -1,10 +1,11 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { isValid, isBefore, format } from 'date-fns'
 
 import { calculateCompleteDateDiff, calculateNextBirthday } from "../utils/calculate-date-diff"
 import { AgeDetail } from "../components/AgeDetail"
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
+import { CompleteDateDiff, NextBirthdayInfo } from "../types/DateDiff"
 
 const TODAY = new Date(), EXAMPLE_DATE = new Date(2000, 2, 26)
 
@@ -12,8 +13,17 @@ TODAY.setHours(0, 0, 0, 0)
 
 export function AgeCalculator() {
 	const [birthDate, setBirthDate] = useState(format(EXAMPLE_DATE, 'yyyy-MM-dd'))
-	const [age, setAge] = useState(calculateCompleteDateDiff(EXAMPLE_DATE.getTime(), TODAY.getTime()))
-	const [nextBirthday, setNextBirthday] = useState(calculateNextBirthday(EXAMPLE_DATE.getTime()))
+	const [age, setAge] = useState<CompleteDateDiff>()
+	const [nextBirthday, setNextBirthday] = useState<NextBirthdayInfo>()
+
+	useEffect(() => {
+		setAge(calculateCompleteDateDiff(EXAMPLE_DATE.getTime(), TODAY.getTime()))
+		setNextBirthday(calculateNextBirthday(EXAMPLE_DATE.getTime()))
+	}, [])
+
+	if (!age || !nextBirthday) {
+		return <></>
+	}
 
 	function handleCalculateSubmit(e: FormEvent) {
 		e.preventDefault()
