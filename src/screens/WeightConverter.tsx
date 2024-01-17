@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 
-import { Select } from "../components/Select"
 import { Entry } from "../components/Entry"
-import { WeigthUnit, weigthUnits, weigthSymbols } from "../types/WeightUnit"
-import { Output } from "../components/Output"
 import { Keyboard } from "../components/Keyboard"
+import { Output } from "../components/Output"
+import { Select } from "../components/Select"
+import { WeigthUnit, weigthUnits, weigthSymbols } from "../types/WeightUnit"
 
 export function WeightConverter() {
 	const [inputUnit, setInputUnit] = useState<WeigthUnit>('Tonelada')
@@ -99,7 +99,7 @@ export function WeightConverter() {
 					/>
 
 					<div className="flex justify-end items-end">
-						<Entry text={input} onTextChange={text => setInput(text)} />
+						<Entry text={input} onChangeText={text => setInput(text)} />
 
 						<span className="mb-2 ml-1 text-lg">{weigthSymbols[inputPos]}</span>
 					</div>
@@ -123,8 +123,8 @@ export function WeightConverter() {
 			<div className='w-80 h-[310px] relative'>
 				<Keyboard
 					layout="COMMON"
-					entry={input}
-					onChangeEntry={text => setInput(text)}
+					text={input}
+					onChangeText={text => setInput(text)}
 					disabledKeys={['+-']}
 				/>
 			</div>

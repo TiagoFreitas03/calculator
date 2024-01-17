@@ -1,4 +1,4 @@
-export enum Time {
+export enum TimeUnits {
 	Semanas,
 	Dias,
 	Horas,
@@ -7,6 +7,6 @@ export enum Time {
 	Milissegundos
 }
 
-export type TimeUnit = keyof typeof Time
+export type TimeUnit = keyof typeof TimeUnits
 
-export const timeUnits = Object.values(Time).filter(t => isNaN(Number(t))).map(String)
+export const timeUnits = Object.values(TimeUnits).filter(t => isNaN(Number(t))).map(String)

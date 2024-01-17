@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 
 import { Entry } from "../components/Entry"
 import { Keyboard } from "../components/Keyboard"
-import { Select } from "../components/Select"
-import { Temperature, TemperatureScale } from "../types/TemperatureScale"
 import { Output } from "../components/Output"
+import { Select } from "../components/Select"
+import { TemperatureScales, TemperatureScale } from "../types/TemperatureScale"
 
-const scales = Object.values(Temperature).filter(t => isNaN(Number(t))).map(String)
+const scales = Object.values(TemperatureScales).filter(t => isNaN(Number(t))).map(String)
 
 export function TemperatureConverter() {
 	const [inputScale, setInputScale] = useState<TemperatureScale>('Celsius')
@@ -67,7 +67,7 @@ export function TemperatureConverter() {
 					/>
 
 					<div className="flex justify-end items-end">
-						<Entry text={input} onTextChange={text => setInput(text)} />
+						<Entry text={input} onChangeText={text => setInput(text)} />
 
 						<span className="text-lg mb-2 ml-1">
 							{(inputSymbol !== 'K' ? '°' : '') + inputSymbol}
@@ -93,7 +93,7 @@ export function TemperatureConverter() {
 			</div>
 
 			<div className='w-80 h-[310px] relative'>
-				<Keyboard layout="COMMON" entry={input} onChangeEntry={text => setInput(text)} />
+				<Keyboard layout="COMMON" text={input} onChangeText={text => setInput(text)} />
 			</div>
 		</>
 	)

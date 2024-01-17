@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import { Keyboard } from "../components/Keyboard"
 import { Entry } from "../components/Entry"
+import { Keyboard } from "../components/Keyboard"
 import { maskNumber } from "../utils/masks"
 
 export function DiscountCalculator() {
@@ -37,7 +37,7 @@ export function DiscountCalculator() {
 				<Entry
 					text={price}
 					active={activeParam === 'p'}
-					onTextChange={text => handleChangePrice(text)}
+					onChangeText={text => handleChangePrice(text)}
 					onClick={() => setActiveParam('p')}
 					small
 					cssClasses={activeParam === 'p' ? 'text-blue-300' : ''}
@@ -50,7 +50,7 @@ export function DiscountCalculator() {
 				<Entry
 					text={discount}
 					active={activeParam === 'd'}
-					onTextChange={text => handleChangeDiscount(text)}
+					onChangeText={text => handleChangeDiscount(text)}
 					onClick={() => setActiveParam('d')}
 					small
 					cssClasses={activeParam === 'd' ? 'text-blue-300' : ''}
@@ -72,8 +72,8 @@ export function DiscountCalculator() {
 			<div className='w-80 h-[280px] relative'>
 				<Keyboard
 					layout="COMMON"
-					entry={activeParam === 'p' ? price : discount}
-					onChangeEntry={text => {
+					text={activeParam === 'p' ? price : discount}
+					onChangeText={text => {
 						if (activeParam === 'p') {
 							handleChangePrice(text)
 						}

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 import { useCalculator } from '../contexts/CalculatorContext'
 import { useKeyboard } from '../hooks/useKeyboard'
-import { Expression } from '../components/Expression'
 import { Entry } from '../components/Entry'
-import { Keyboard } from '../components/Keyboard'
+import { Expression } from '../components/Expression'
 import { History } from '../components/History'
 import { IconButton } from '../components/IconButton'
+import { Keyboard } from '../components/Keyboard'
 import { OPERATIONS } from '../constants/KEYS'
 import { addOperator, calculate } from '../utils/operations'
 
@@ -85,7 +85,7 @@ export function Calculator() {
 				<Entry
 					text={entry}
 					clear={clearEntry}
-					onTextChange={text => handleEntryChange(text)}
+					onChangeText={text => handleEntryChange(text)}
 					onKeyClick={key => handleButtonPress(key)}
 				/>
 
@@ -113,10 +113,10 @@ export function Calculator() {
 			<div className='w-80 h-[400px] relative'>
 				<Keyboard
 					layout='CALCULATOR'
-					entry={entry}
+					text={entry}
 					clear={clearEntry}
-					onChangeEntry={text => handleEntryChange(text)}
-					onButtonClick={(key) => handleButtonPress(key)}
+					onChangeText={text => handleEntryChange(text)}
+					onKeyClick={(key) => handleButtonPress(key)}
 				/>
 
 				<History

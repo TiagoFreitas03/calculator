@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react"
 
-import { Button } from '../components/Button'
 import { BMIResult } from "../components/BMIResult"
+import { CalculateButton } from '../components/CalculateButton'
 import { Entry } from "../components/Entry"
 import { Keyboard } from "../components/Keyboard"
 
@@ -69,7 +69,7 @@ export function BMICalculator() {
 						clear={clearWeight}
 						text={weight}
 						active={activeParam === 'w'}
-						onTextChange={text => handleParamChange(text)}
+						onChangeText={text => handleParamChange(text)}
 						onClick={() => handleParamClick('w')}
 						cssClasses={activeParam === 'w' ? 'text-blue-300' : ''}
 					/>
@@ -84,7 +84,7 @@ export function BMICalculator() {
 						clear={clearHeight}
 						text={height}
 						active={activeParam === 'h'}
-						onTextChange={text => handleParamChange(text)}
+						onChangeText={text => handleParamChange(text)}
 						onClick={() => handleParamClick('h')}
 						cssClasses={activeParam === 'h' ? 'text-blue-300' : ''}
 					/>
@@ -92,7 +92,7 @@ export function BMICalculator() {
 					<span className="text-right text-sm -mt-2">Centímetros</span>
 				</div>
 
-				<Button title="Calcular" type="submit" />
+				<CalculateButton />
 			</form>
 
 			<div className='w-80 h-[280px] relative mt-2'>
@@ -101,8 +101,8 @@ export function BMICalculator() {
 						<BMIResult value={bmi} /> :
 						<Keyboard
 							layout="COMMON"
-							entry={activeParam === 'w' ? weight : height}
-							onChangeEntry={text => handleParamChange(text)}
+							text={activeParam === 'w' ? weight : height}
+							onChangeText={text => handleParamChange(text)}
 							disabledKeys={['+-']}
 						/>
 				}

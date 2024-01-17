@@ -1,4 +1,4 @@
-import { Button } from '../types/Button'
+import { Button } from '../interfaces/Button'
 
 const NUMPAD_KEYS: Button[] = [
 	{ key: '7', icon: '7' },

@@ -1,22 +1,17 @@
 import { KeyboardButton } from "./KeyboardButton"
-import { useKeyboard } from "../hooks/useKeyboard"
 import { KEYBOARD_LAYOUTS } from "../constants/KEYBOARD_LAYOUTS"
 import { NUMPAD_KEYS } from "../constants/BUTTONS"
-import { Button } from "../types/Button"
-import { EntryType } from "../types/EntryType"
+import { useKeyboard } from "../hooks/useKeyboard"
+import { CalculatorProps } from "../interfaces/CalculatorProps"
+import { Button } from "../interfaces/Button"
 
-interface KeyboardProps {
+interface KeyboardProps extends CalculatorProps {
 	layout: 'CALCULATOR' | 'COMMON' | 'HEX'
-	entry: string
-	clear?: boolean
 	disabledKeys?: string[]
-	type?: EntryType
-	onChangeEntry: (text: string) => void
-	onButtonClick?: (key: string) => void
 }
 
 export function Keyboard({
-	layout, entry, clear = false, disabledKeys = [], type = 'dec', onChangeEntry, onButtonClick
+	layout, text: entry, clear = false, disabledKeys = [], type = 'dec', onChangeText, onKeyClick
 }: KeyboardProps) {
 	const { topKeys, rightKeys } = KEYBOARD_LAYOUTS[layout]
 
@@ -33,10 +28,10 @@ export function Keyboard({
 						}
 
 						if (changeEntry) {
-							onChangeEntry(handleKeyPress(clear ? '0' : entry, key))
+							onChangeText(handleKeyPress(clear ? '0' : entry, key))
 						}
-						else if (onButtonClick) {
-							onButtonClick(key)
+						else if (onKeyClick) {
+							onKeyClick(key)
 						}
 					}}
 					text={text ?? key}

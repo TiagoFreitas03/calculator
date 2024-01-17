@@ -48,7 +48,7 @@ export function DataUnitConverter() {
 					/>
 
 					<div className="flex justify-end items-end">
-						<Entry text={input} onTextChange={text => setInput(text)} />
+						<Entry text={input} onChangeText={text => setInput(text)} />
 
 						<span className="mb-2 ml-1">
 							{inputSymbol + (inputSymbol !== 'B' ? 'B' : '')}
@@ -76,8 +76,8 @@ export function DataUnitConverter() {
 			<div className='w-80 h-[310px] relative'>
 				<Keyboard
 					layout="COMMON"
-					entry={input}
-					onChangeEntry={text => setInput(text)}
+					text={input}
+					onChangeText={text => setInput(text)}
 					disabledKeys={['+-']}
 				/>
 			</div>

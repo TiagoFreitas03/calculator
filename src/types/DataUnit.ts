@@ -1,4 +1,4 @@
-export enum Data {
+export enum DataUnits {
 	Byte,
 	Kilobyte,
 	Megabyte,
@@ -7,8 +7,6 @@ export enum Data {
 	Petabyte
 }
 
-export type DataUnit = keyof typeof Data
+export type DataUnit = keyof typeof DataUnits
 
-const units = Object.values(Data).filter(u => isNaN(Number(u))).map(String)
-
-export { units }
+export const units = Object.values(DataUnits).filter(u => isNaN(Number(u))).map(String)

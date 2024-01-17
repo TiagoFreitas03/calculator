@@ -1,8 +1,8 @@
 import clsx from "clsx"
 
 import { OperatorIcon } from "./OperatorIcon"
-import { useCalculator } from "../contexts/CalculatorContext"
 import { OPERATIONS } from "../constants/KEYS"
+import { useCalculator } from "../contexts/CalculatorContext"
 import { maskExpression,maskNumber } from "../utils/masks"
 
 interface HistoryProps {

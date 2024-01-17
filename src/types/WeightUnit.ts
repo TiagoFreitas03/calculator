@@ -1,4 +1,4 @@
-enum Weigth {
+enum WeigthUnits {
 	Tonelada,
 	Quilograma,
 	Grama,
@@ -8,9 +8,9 @@ enum Weigth {
 	Quilate
 }
 
-export type WeigthUnit = keyof typeof Weigth
+export type WeigthUnit = keyof typeof WeigthUnits
 
-const weigthUnits = Object.values(Weigth).filter(w => isNaN(Number(w))).map(String)
+const weigthUnits = Object.values(WeigthUnits).filter(w => isNaN(Number(w))).map(String)
 
 const weigthSymbols = ['t', 'kg', 'g', 'mg', 'lb', 'oz', 'ct']
 

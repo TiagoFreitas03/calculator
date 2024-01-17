@@ -1,7 +1,7 @@
 import { differenceInDays, differenceInMonths, differenceInYears, format } from "date-fns"
 import { ptBR } from 'date-fns/locale'
 
-import { CompleteDateDiff, DateDiff, NextBirthdayInfo } from "../types/DateDiff"
+import { CompleteDateDiff, DateDiff, NextBirthdayInfo } from "../interfaces/DateDiff"
 
 function calculateCompleteDateDiff(startTime: number, endTime: number): CompleteDateDiff {
 	const start = new Date(startTime)

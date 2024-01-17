@@ -1,11 +1,11 @@
 import clsx from "clsx"
 
+import { NumberBase } from "../types/NumberBase"
 import { maskNumber } from "../utils/masks"
-import { EntryType } from "../types/EntryType"
 
 interface OutputProps {
 	value: string
-	type?: EntryType
+	type?: NumberBase
 }
 
 export function Output({ value, type = 'dec' }: OutputProps) {

@@ -1,13 +1,8 @@
-import { ReactNode } from "react"
 import { Link } from "react-router-dom"
 
-interface LayoutProps {
-	children: ReactNode
-	title?: string
-	navigateTo?: string
-}
+import { ScreenProps } from "../interfaces/ScreenProps"
 
-export function Layout({ children, title, navigateTo = '/menu' }: LayoutProps) {
+export function Layout({ children, title, navigateTo = '/menu' }: ScreenProps) {
 	window.onkeydown = () => {}
 
 	return (

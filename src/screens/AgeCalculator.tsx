@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from "react"
 import { isValid, isBefore, format } from 'date-fns'
 
-import { calculateCompleteDateDiff, calculateNextBirthday } from "../utils/calculate-date-diff"
+import { calculateCompleteDateDiff, calculateNextBirthday } from "../utils/date-utils"
 import { AgeDetail } from "../components/AgeDetail"
 import { Input } from "../components/Input"
-import { Button } from "../components/Button"
-import { CompleteDateDiff, NextBirthdayInfo } from "../types/DateDiff"
+import { CalculateButton } from "../components/CalculateButton"
+import { CompleteDateDiff, NextBirthdayInfo } from "../interfaces/DateDiff"
 
 const TODAY = new Date(), EXAMPLE_DATE = new Date(2000, 2, 26)
 
@@ -57,7 +57,7 @@ export function AgeCalculator() {
 					/>
 				</div>
 
-				<Button type="submit" title="Calcular" />
+				<CalculateButton />
 			</form>
 
 			<div className="mt-4 bg-zinc-900 rounded-lg py-1">

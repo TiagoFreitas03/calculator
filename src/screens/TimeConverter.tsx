@@ -56,7 +56,7 @@ export function TimeConverter() {
 						onChange={e => setInputUnit(e.target.value as TimeUnit)}
 					/>
 
-					<Entry text={input} onTextChange={text => setInput(text)} />
+					<Entry text={input} onChangeText={text => setInput(text)} />
 				</div>
 
 				<div className="my-2 border-b border-zinc-700">
@@ -73,8 +73,8 @@ export function TimeConverter() {
 			<div className='w-80 h-[310px] relative'>
 				<Keyboard
 					layout="COMMON"
-					entry={input}
-					onChangeEntry={text => setInput(text)}
+					text={input}
+					onChangeText={text => setInput(text)}
 					disabledKeys={['+-']}
 				/>
 			</div>

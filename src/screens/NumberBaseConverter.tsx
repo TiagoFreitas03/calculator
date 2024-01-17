@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { Entry as Bases, EntryType as NumericBase } from '../types/EntryType'
-import { Select } from '../components/Select'
+import { NumberBase, NumberBases } from '../types/NumberBase'
 import { Entry } from '../components/Entry'
-import { Output } from '../components/Output'
 import { Keyboard } from '../components/Keyboard'
+import { Output } from '../components/Output'
+import { Select } from '../components/Select'
 import { TEXT_KEYS } from '../constants/KEYS'
 
-const bases = Object.values(Bases).filter(b => isNaN(Number(b))).map(String)
-const basesNum = Object.values(Bases).filter(b => !isNaN(Number(b))).map(Number)
+const bases = Object.values(NumberBases).filter(b => isNaN(Number(b))).map(String)
+const basesNum = Object.values(NumberBases).filter(b => !isNaN(Number(b))).map(Number)
 const keys = TEXT_KEYS.slice().sort()
 
-export function NumericBaseConverter() {
-	const [inputBase, setInputBase] = useState<NumericBase>('dec')
-	const [outputBase, setOutputBase] = useState<NumericBase>('bin')
+export function NumberBaseConverter() {
+	const [inputBase, setInputBase] = useState<NumberBase>('dec')
+	const [outputBase, setOutputBase] = useState<NumberBase>('bin')
 	const [input, setInput] = useState('0')
 	const [output, setOutput] = useState('')
 
@@ -45,13 +45,13 @@ export function NumericBaseConverter() {
 				<Select
 					options={bases}
 					value={inputBase}
-					onChange={e => setInputBase(e.target.value as NumericBase)}
+					onChange={e => setInputBase(e.target.value as NumberBase)}
 				/>
 
 				<div className='text-right'>
 					<Entry
 						text={input}
-						onTextChange={text => setInput(text)}
+						onChangeText={text => setInput(text)}
 						type={inputBase}
 						allowDecimals={false}
 					/>
@@ -62,7 +62,7 @@ export function NumericBaseConverter() {
 				<Select
 					options={bases}
 					value={outputBase}
-					onChange={e => setOutputBase(e.target.value as NumericBase)}
+					onChange={e => setOutputBase(e.target.value as NumberBase)}
 				/>
 
 				<div className='text-right'>
@@ -73,8 +73,8 @@ export function NumericBaseConverter() {
 			<div className='w-80 h-[330px] relative'>
 				<Keyboard
 					layout="HEX"
-					entry={input}
-					onChangeEntry={text => setInput(text)}
+					text={input}
+					onChangeText={text => setInput(text)}
 					type={inputBase}
 					disabledKeys={['+-', '.', ...keys.slice().splice(inputBaseNum + 1, keys.length - 1)]}
 				/>

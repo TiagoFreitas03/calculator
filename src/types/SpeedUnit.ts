@@ -1,4 +1,4 @@
-enum Speed {
+enum SpeedUnits {
 	MetersPerSecond = 'Metros por segundo',
 	KilometersPerHour = 'Quilômetros por hora',
 	MilesPerHour = 'Milhas por hora',
@@ -6,7 +6,7 @@ enum Speed {
 	FootPerSecond = 'Pés por segundo'
 }
 
-const speedUnits = Object.values(Speed).filter(s => isNaN(Number(s))).map(String)
+const speedUnits = Object.values(SpeedUnits).filter(s => isNaN(Number(s))).map(String)
 
 const speedSymbols = ['m/s', 'km/h', 'mph', 'kn', 'ft/s']
 

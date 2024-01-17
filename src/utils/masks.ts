@@ -1,4 +1,4 @@
-import { EntryType } from "../types/EntryType"
+import { NumberBase } from "../types/NumberBase"
 
 function maskExpression(expression: string[]) {
 	for (let i = 0; i < expression.length; i++) {
@@ -13,7 +13,7 @@ function maskExpression(expression: string[]) {
 function maskNumber(
 	str: string,
 	parenthesis: boolean = false,
-	base: EntryType = 'dec',
+	base: NumberBase = 'dec',
 	decimalPlaces?: number
 ) {
 	const maskDecimal = () => {
@@ -56,17 +56,17 @@ function maskNumber(
 
 		if (negative) {
 			num.unshift('-')
-		}
 
-		if (negative && parenthesis) {
-			num.unshift('(')
-			num.push(')')
+			if (parenthesis) {
+				num.unshift('(')
+				num.push(')')
+			}
 		}
 
 		return num.join('')
 	}
 
-	const maskOtherBases = (space: number) => {
+	const maskOtherBases = (spacePos: number) => {
 		const digits = str.split('')
 		const num: string[] = []
 		let i = 0
@@ -75,7 +75,7 @@ function maskNumber(
 			num.unshift(digits[pos])
 			i++
 
-			if (i % space === 0 && i < digits.length) {
+			if (i % spacePos === 0 && i < digits.length) {
 				num.unshift(' ')
 			}
 		}
@@ -84,9 +84,12 @@ function maskNumber(
 	}
 
 	switch (base) {
-		case 'dec': return maskDecimal()
-		case 'oct': return maskOtherBases(3)
-		default: return maskOtherBases(4)
+		case 'dec':
+			return maskDecimal()
+		case 'oct':
+			return maskOtherBases(3)
+		default:
+			return maskOtherBases(4)
 	}
 }
 

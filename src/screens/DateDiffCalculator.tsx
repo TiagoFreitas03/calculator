@@ -3,9 +3,9 @@ import { format, isAfter, isValid } from "date-fns"
 import { ptBR } from 'date-fns/locale'
 
 import { Input } from "../components/Input"
-import { Button } from "../components/Button"
-import { calculateDateDiff } from "../utils/calculate-date-diff"
-import { DateDiff } from "../types/DateDiff"
+import { CalculateButton } from "../components/CalculateButton"
+import { calculateDateDiff } from "../utils/date-utils"
+import { DateDiff } from "../interfaces/DateDiff"
 
 const TODAY = new Date()
 
@@ -60,7 +60,7 @@ export function DateDiffCalculator() {
 					<Input label="Até" type="date" value={to} onChange={e => setTo(e.target.value)} />
 				</div>
 
-				<Button type="submit" title="Calcular" />
+				<CalculateButton />
 			</form>
 
 			<div className="mt-4 bg-zinc-900 rounded-lg py-1">

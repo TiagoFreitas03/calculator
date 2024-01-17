@@ -1,22 +1,17 @@
+import { HTMLAttributes } from "react"
 import clsx from "clsx"
 
-import { useKeyboard } from "../hooks/useKeyboard"
 import { BUTTONS } from "../constants/BUTTONS"
 import { KEYS } from "../constants/KEYS"
-import { EntryType } from "../types/EntryType"
+import { useKeyboard } from "../hooks/useKeyboard"
+import { CalculatorProps } from "../interfaces/CalculatorProps"
 import { maskNumber } from "../utils/masks"
-import { HTMLAttributes } from "react"
 
-interface EntryProps extends HTMLAttributes<HTMLSpanElement> {
-	text: string
-	clear?: boolean
-	type?: EntryType
+interface EntryProps extends CalculatorProps, HTMLAttributes<HTMLSpanElement> {
 	active?: boolean
 	cssClasses?: string
 	allowDecimals?: boolean
 	small?: boolean
-	onTextChange: (text: string) => void
-	onKeyClick?: (key: string) => void
 }
 
 export function Entry({
@@ -27,7 +22,7 @@ export function Entry({
 	cssClasses,
 	allowDecimals = true,
 	small = false,
-	onTextChange,
+	onChangeText,
 	onKeyClick,
 	...rest
 }: EntryProps) {
@@ -45,7 +40,7 @@ export function Entry({
 
 			if (button) {
 				if (button.changeEntry) {
-					onTextChange(handleKeyPress(clear ? '0' : text, key))
+					onChangeText(handleKeyPress(clear ? '0' : text, key))
 				}
 				else if (onKeyClick) {
 					onKeyClick(key)

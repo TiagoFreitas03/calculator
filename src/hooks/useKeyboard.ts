@@ -1,23 +1,23 @@
-import { EntryType } from "../types/EntryType"
+import { NumberBase } from "../types/NumberBase"
 import { LETTERS, NUMBERS, TEXT_KEYS } from "../constants/KEYS"
-import { onlyHexCharacters, onlyNumbers } from "../utils/only-numbers"
+import { onlyHexCharacters, onlyNumbers } from "../utils/text-filters"
 
-export function useKeyboard(type: EntryType = 'bin', allowDecimals = true) {
+export function useKeyboard(type: NumberBase = 'dec', allowDecimals = true) {
 	function handleKeyPress(text: string, key: string) {
 		if (TEXT_KEYS.includes(key)) {
 			return append(text, key)
 		}
-		else if (key === 'Backspace') {
-			return erase(text)
-		}
-		else if (key === '%') {
-			return percent(text)
-		}
-		else if (key === '+-') {
-			return reverse(text)
-		}
-		else if (key === 'Delete') {
-			return '0'
+		else {
+			switch (key) {
+				case 'Backspace':
+					return erase(text);
+				case '%':
+					return percent(text)
+				case '+-':
+					return reverse(text)
+				case 'Delete':
+					return '0'
+			}
 		}
 
 		return text
@@ -39,10 +39,8 @@ export function useKeyboard(type: EntryType = 'bin', allowDecimals = true) {
 				text = text === '0' ? key : text + key
 			}
 		}
-		else if (key === '.' && !text.includes(key)) {
-			if (onlyNumbers(text).length < 21) {
-				text = text + key
-			}
+		else if (key === '.' && !text.includes(key) && onlyNumbers(text).length < 21) {
+			text = text + key
 		}
 
 		return validateEntry(text) ? text : original
@@ -77,13 +75,16 @@ export function useKeyboard(type: EntryType = 'bin', allowDecimals = true) {
 
 	function validateEntry(text: string) {
 		switch (type) {
-			case 'bin': return (/^[01]+$/g).test(text)
-			case 'oct': return (/^[0-7]+$/g).test(text)
+			case 'bin':
+				return (/^[01]+$/g).test(text)
+			case 'oct':
+				return (/^[0-7]+$/g).test(text)
 			case 'dec':
 				return allowDecimals ?
 					(/^\-?[0-9]*\.?[0-9]*$/).test(text) :
 					(/^[0-9]+$/g).test(text)
-			case 'hex': return (/^[0-9A-Fa-f]+$/g).test(text)
+			case 'hex':
+				return (/^[0-9A-Fa-f]+$/g).test(text)
 		}
 	}
 
