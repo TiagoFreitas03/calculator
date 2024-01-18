@@ -14,6 +14,7 @@ import { TimeConverter } from "./screens/TimeConverter"
 import { WeightConverter } from "./screens/WeightConverter"
 import { SpeedConverter } from "./screens/SpeedConverter"
 import { AreaConverter } from "./screens/AreaConverter"
+import { LengthConverter } from "./screens/LengthConverter"
 
 interface AppRoute extends ScreenProps {
 	path: string
@@ -43,5 +44,6 @@ export const routes: AppRoute[] = [
 	{ path: '/weight', children: <WeightConverter />, title: 'Massa' },
 	{ path: '/speed', children: <SpeedConverter />, title: 'Velocidade' },
 	{ path: '/area', children: <AreaConverter />, title: 'Área' },
+	{ path: '/length', children: <LengthConverter />, title: 'Comprimento' },
 	{ path: '*', children: <NotFound />, hideLayout: true }
 ]
