@@ -5,7 +5,7 @@ enum LengthUnits {
 	Meters = 'Metros',
 	Decimeters = 'Decímetros',
 	Centimeters = 'Centímetros',
-	Milimeters = 'Milímetros',
+	Millimeters = 'Milímetros',
 	Miles = 'Milhas',
 	Feet = 'Pés',
 	Inches = 'Polegadas'
