@@ -11,7 +11,7 @@ import { BMICalculator } from "./screens/BMICalculator"
 import { NumberBaseConverter } from "./screens/NumberBaseConverter"
 import { DiscountCalculator } from "./screens/DiscountCalculator"
 import { TimeConverter } from "./screens/TimeConverter"
-import { WeightConverter } from "./screens/WeightConverter"
+import { MassConverter } from "./screens/MassConverter"
 import { SpeedConverter } from "./screens/SpeedConverter"
 import { AreaConverter } from "./screens/AreaConverter"
 import { LengthConverter } from "./screens/LengthConverter"
@@ -42,7 +42,7 @@ export const routes: AppRoute[] = [
 	{ path: '/number-base', children: <NumberBaseConverter />, title: 'Base numérica' },
 	{ path: '/discount', children: <DiscountCalculator />, title: 'Desconto' },
 	{ path: '/time', children: <TimeConverter />, title: 'Tempo' },
-	{ path: '/weight', children: <WeightConverter />, title: 'Massa' },
+	{ path: '/mass', children: <MassConverter />, title: 'Massa' },
 	{ path: '/speed', children: <SpeedConverter />, title: 'Velocidade' },
 	{ path: '/area', children: <AreaConverter />, title: 'Área' },
 	{ path: '/length', children: <LengthConverter />, title: 'Comprimento' },

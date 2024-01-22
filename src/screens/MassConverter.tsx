@@ -6,7 +6,7 @@ import { Output } from "../components/Output"
 import { Select } from "../components/Select"
 import { WeigthUnit, weigthUnits, weigthSymbols } from "../types/WeightUnit"
 
-export function WeightConverter() {
+export function MassConverter() {
 	const [inputUnit, setInputUnit] = useState<WeigthUnit>('Tonelada')
 	const [outputUnit, setOutputUnit] = useState<WeigthUnit>('Quilograma')
 	const [input, setInput] = useState('1')
