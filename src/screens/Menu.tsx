@@ -8,7 +8,7 @@ const options = [
 	{ link: '/date-diff', icon: 'calendar-days', title: 'Data' },
 	{ link: '/discount', icon: 'tag', title: 'Desconto' },
 	{ link: '/length', icon: 'ruler', title: 'Comprimento' },
-	{ link: '/weight', icon: 'weight-hanging', title: 'Massa' },
+	{ link: '/mass', icon: 'weight-hanging', title: 'Massa' },
 	{ link: '/number-base', icon: 'rotate', title: 'Base numérica' },
 	{ link: '/speed', icon: 'gauge-simple-high', title: 'Velocidade' },
 	{ link: '/temperature', icon: 'temperature-full', title: 'Temperatura' },
