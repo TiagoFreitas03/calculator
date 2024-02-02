@@ -29,7 +29,7 @@ export function useKeyboard(type: NumberBase = 'dec', allowDecimals = true) {
 
 		if (NUMBERS.includes(key) || LETTERS.includes(key.toLowerCase())) { // 0..9, A..F
 			const conditions = [
-				type === 'bin' && onlyNumbers(text).length < 48,
+				type === 'bin' && onlyNumbers(text).length < 40,
 				type === 'oct' && onlyNumbers(text).length < 17,
 				type === 'dec' && onlyNumbers(text).length < 15,
 				type === 'hex' && onlyHexCharacters(text).length < 12
