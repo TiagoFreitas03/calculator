@@ -6,7 +6,7 @@
 
 ## 💻 Projeto
 
-Este projeto é uma calculadora capaz de realizar as quatro operações básicas da matemática: soma, subtração, multiplicação e divisão.
+Este projeto é uma calculadora capaz de realizar as quatro operações básicas da matemática: soma, subtração, multiplicação e divisão. Além disso, possui diversos cálculos específicos (idade, IMC, etc.) e conversores de unidades diversas (área, massa, temperatura, etc.).
 
 ## ✨ Tecnologias
 
