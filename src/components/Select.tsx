@@ -1,20 +1,22 @@
 import { SelectHTMLAttributes } from "react"
 
+interface Option {
+	title: string
+	value: string
+}
+
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-	options: string[]
+	options: Option[]
 }
 
 export function Select({ options, ...rest }: SelectProps) {
 	return (
-		<select
-			{...rest}
-			className="bg-black p-1"
-		>
+		<select {...rest} className="bg-black p-1">
 			{
 				options.map(opt => {
 					return (
-						<option value={opt} key={opt}>
-							{opt}
+						<option value={opt.value} key={opt.value}>
+							{opt.title}
 						</option>
 					)
 				})
